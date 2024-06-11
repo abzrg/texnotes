@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+test -d .git \
+    || {
+        echo "Please run this script only from the root of the repository"
+        exit 1
+    }
+
+# Set the current course
+current_course=$(gfind \
+    courses/* \
+    -type d -prune \
+| fzf --no-multi --preview='test -n "{}" && ls {}' -q "$*")
+
+ln -fns $current_course current-course
