@@ -1,0 +1,38 @@
+\chapter{\texorpdfstring{\keModel}\ \ Model}
+
+\(k\) is in units of \(u^2\).
+Kinetic energy per unit mass, \(\text{KE} = \f{1}{2} u^2\) has the same unit as well.
+In eddy viscosity model (Boussinesq approximation), how are we supposed to calculate $\mu_T$ and $k$?
+
+k is the sum of disturbances in velocity in all directions:
+%
+\begin{equation}
+k = \f{1}{2} \left({u^\prime}^2 + {v^\prime}^2 + {w^\prime}^2\right).
+\end{equation}
+%
+%
+The \(\epsilon\) is the following
+%
+\begin{equation}
+\epsilon = \nu_T \overline{ \left(\f{\p u^\prime_i}{\p x_j}\right) \left(\f{\p u^\prime_i}{\p x_j}\right) }
+\end{equation}
+%
+\begin{multline}
+  \epsilon = \nu_T \biggl( \overline{ \f{\p u^\prime}{\p x} \f{\p u^\prime}{\p x} }
+    + \overline{ \f{\p u^\prime}{\p y} \f{\p u^\prime}{\p y} }
+    + \overline{ \f{\p u^\prime}{\p z} \f{\p u^\prime}{\p z} }  \\
+    + \overline{ \f{\p v^\prime}{\p x} \f{\p v^\prime}{\p x} }
+    + \overline{ \f{\p v^\prime}{\p y} \f{\p v^\prime}{\p y} }
+    + \overline{ \f{\p v^\prime}{\p z} \f{\p v^\prime}{\p z} } \\
+    + \overline{ \f{\p w^\prime}{\p x} \f{\p w^\prime}{\p x} }
+    + \overline{ \f{\p w^\prime}{\p y} \f{\p w^\prime}{\p y} }
+    + \overline{ \f{\p w^\prime}{\p z} \f{\p w^\prime}{\p z} }
+    \biggr).
+\end{multline}
+%
+Once we have \(k\) and \(\varepsilon \epsilon\) we can compute $\mu_T$ using the following equation
+%
+\begin{equation}
+  \mu_T = \rho C_\mu \f{k^2}{\epsilon}
+  \label{eq:ke-mut-formula}
+\end{equation}

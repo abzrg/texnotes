@@ -1,0 +1,190 @@
+\usepackage[a4paper,margin=1in]{geometry}
+
+\usepackage[utf8]{inputenc}
+% \usepackage{times}
+% \usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+
+\usepackage[english]{babel}
+
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{unsrtnat}
+
+\usepackage[hidelinks]{hyperref}
+\pdfstringdefDisableCommands{\def\varepsilon{\textepsilon}}
+\usepackage{bookmark}% faster updated bookmarks
+
+
+% Math stuff
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{nicefrac}
+
+\newcommand{\f}{\frac}
+\newcommand{\nf}{\nicefrac}
+\newcommand{\mb}{\mathbf}
+\newcommand{\degree}{\ensuremath{^\circ\,}}
+\newcommand{\tr}[1]{\mathrm{Tr}\left({#1}\right)}
+\newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\d}{\mathop{}\!\mathrm{d}} % total derivative
+\newcommand{\D}{\mathop{}\!\mathrm{D}} % total derivative
+\newcommand{\p}{\partial}
+
+% Put x \to \infty below \lim
+\let\svlim\lim\def\lim{\svlim\limits}
+%Make implies and impliedby shorter
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+
+% Swap epsilon and varepsilon
+\let\epsilonOld\epsilon
+\let\epsilon\varepsilon   %<------- epsilon == varepsilon
+\let\varepsilon\epsilonOld
+
+% Add \contra symbol to denote contradiction
+\usepackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+
+% Fancy script capitals
+\usepackage{mathrsfs}
+\usepackage{cancel}
+% Bold math
+\usepackage{bm}
+% Some shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+
+
+% Figures
+\usepackage{graphicx}
+\graphicspath{{./figures}}
+
+% Figure support as explained in my blog post.
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+
+% Code listings
+\usepackage{listings}
+\definecolor{LightGrey}{HTML}{fafafa}
+% \lstset{ %
+%     escapeinside={(*@}{@*)},         % escape characters to write latex code in the listing (e.g. highlighting) (  (*@  \textcolor{blue}{code}  @*) )
+%     breaklines=true,                 % automatic line breaking only at whitespace
+%     captionpos=b,                    % sets the caption-position to bottom
+%     backgroundcolor=\color{LightGrey},
+%     basicstyle=\footnotesize\ttfamily,
+%     % numbers=left,
+%     % stepnumber=1,
+% }
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    escapeinside={/@}{@/)}, % escape characters to write latex code in the listing (e.g. highlighting) (  (*@  \textcolor{blue}{code}  @*) )
+    % columns=fullflexible,  % fixes issues related to spacing of the tex code inside lstlistings
+    moredelim=[is][\underbar]{_}{_},
+}
+\lstset{ style=mystyle }
+
+\usepackage{color} % for highlight purpose
+\usepackage[cache=false,outputdir=build]{minted}
+\definecolor{LightBrown}{rgb}{0.95,0.95,0.92}
+\definecolor{LightGrey}{HTML}{fafafa}
+\definecolor{MidGrey}{HTML}{8a8a8a}
+% \setminted[<language>]{<key=value,...>}
+\setminted{
+fontsize=\footnotesize,
+bgcolor=LightBrown,
+}
+\renewcommand{\theFancyVerbLine}{\textcolor{MidGrey}{\arabic{FancyVerbLine}}}
+% reduce the space between caption and listing
+\AtEndEnvironment{listing}{\vspace{-20pt}}
+
+% CUSTOM COMMANDS
+\newcommand{\mono}{\texttt}
+
+
+% Other
+
+% Units
+\usepackage{siunitx}
+
+% Paths and urls
+% xurl: a seemingly better version of url, which solves the problem long urls/paths not breaking.
+\usepackage{xurl}
+
+
+% Colored boxed for amsmath
+%
+% https://tex.stackexchange.com/a/326380/220469
+%
+% Definition of \boxed in amsmath.sty:
+% \newcommand{\boxed}[1]{\fbox{\m@th$\displaystyle#1$}}
+\usepackage{xcolor}
+\definecolor{LightBlue}{HTML}{e6feff}
+%stroke-fill-hl
+\newcommand{\sfhl}{\fcolorbox{LightBlue}{LightBlue}}
+%stroke-fill-hl-mono (mono version)
+\newcommand{\sfhlmono}[1]{\fcolorbox{LightBlue}{LightBlue}{\texttt{#1}}}
+
+% Syntax: \colorboxed[<color model>]{<color specification>}{<math formula>}
+\newcommand*{\colorboxed}{}
+\def\colorboxed#1#{%
+  \colorboxedAux{#1}%
+}
+\newcommand*{\colorboxedAux}[3]{%
+  % #1: optional argument for color model
+  % #2: color specification
+  % #3: formula
+  \begingroup
+    \colorlet{cb@saved}{.}%
+    \color#1{#2}%
+    \boxed{%
+      \color{cb@saved}%
+      #3%
+    }%
+  \endgroup
+}
+
+
+% Some nice helpers
+\usepackage{xspace}
+\newcommand{\keModel}{\(k\text{-}\epsilon\)\xspace}
+
+%
+% \newcommand{\setbackgroundcolour}{\pagecolor[rgb]{0.19,0.19,0.19}}
+% \newcommand{\settextcolour}{\color[rgb]{0.77,0.77,0.77}}
+% \newcommand{\invertbackgroundtext}{\setbackgroundcolour\settextcolour}
+%
+% %Command execution.
+% %If this line is commented, then the appearance remains as usual.
+% \invertbackgroundtext

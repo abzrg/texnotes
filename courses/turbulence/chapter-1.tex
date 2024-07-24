@@ -1,0 +1,913 @@
+\chapter{Theoretical Background}
+
+\section{Preliminary}
+
+The following is the Navier Stokes equations:
+%
+\begin{equation}
+  \begin{gathered}
+    \mu \nabla^2 u - \f{\p p}{\p x} + \rho g_x = \rho \left(\f{\D u}{\D t}\right), \\
+    \mu \nabla^2 v - \f{\p p}{\p y} + \rho g_y = \rho \left(\f{\D v}{\D t}\right), \\
+    \mu \nabla^2 w - \f{\p p}{\p z} + \rho g_z = \rho \left(\f{\D w}{\D t}\right), \\
+    \nabla \cdot \mb{U} = 0,
+  \end{gathered}
+  \label{eq:navier-stokes}
+\end{equation}
+
+%
+where \( \mb{U} = u \mb{i} + v \mb{j} + w \mb{k} \). The convective form of incompressible Navier-Stokes (by dividing for the density) is the following:
+%
+\begin{equation}
+  \begin{gathered}
+    \f{\p \mb{U}}{dt} + \left( \mb{U} \cdot \nabla \right) \mb{U} - \nu \nabla^2 \mb{U} = -\nabla w + \mb{g}, \\
+    \f{1}{\rho_0} \nabla p = \nabla \left(\f{p}{\rho_0)} \right) \equiv \nabla w,
+  \end{gathered}
+  \label{eq:navier-stokes-compact}
+\end{equation}
+%
+where \(w\) is the specific weight (with the sense of per unit mass) thermodynamic work, the internal source term.
+The first two terms of the above equation can be replaced by the \emph{total derivative} (with \(\phi = \mb{U}\)):
+%
+\begin{equation}
+\begin{aligned}
+  \f{\D\phi}{\D t} &= \f{\p \phi}{\p t} + u \f{\p\phi}{\p x} + v \f{\p\phi}{\p y} + w \f{\p \phi}{\p z}, \\
+               &= \f {\p\phi}{\p t} + \mb{U} \cdot \nabla\phi.
+\end{aligned}
+\label{eq:total-derivative}
+\end{equation}
+
+
+\section{Averaging Navier-Stokes}
+
+The goal is to decompose the instantaneous velocity and pressure field into two components: a \emph{average field},
+and a \emph{fluctuating field}.
+%
+\begin{equation}
+  \begin{gathered}
+  \mb{U} = \bar{\mb{U}} + \mb{U}^\prime, \\
+  u = \bar{u} + u^\prime, \\
+  v = \bar{v} + v^\prime, \\
+  w = \bar{w} + w^\prime,
+  \end{gathered}
+  \label{eq:velocity-as-two-component}
+\end{equation}
+%
+and
+%
+\begin{equation}
+  p = \bar{p} + p^\prime,
+  \label{eq:pressure-as-two-component}
+\end{equation}
+%
+where the first term \(\bar{\square}\) is the averaged component and \(\square^\prime\) is the fluctuating component.
+To do so, we need to do some \emph{time averaging} on the Navier-Stokes equation for velocity and pressure fields.
+Gravity, however, does not usually fluctuate and thus we ignore it.
+We start by substituting the Eq.~\ref{eq:velocity-as-two-component} into Eq.~\ref{eq:navier-stokes}.
+We also expand the total derivative term on the right hand side as well.
+%
+\begin{equation}
+    \mu \nabla^2 u - \f{\p p}{\p x} + \rho g_x
+    = \rho \left(\f{\p u}{\p t} + u \f{\p u}{\p x} + v \f{\p u}{\p y} + w \f{\p u}{\p z} \right) \\
+  \label{eq:NS-time-avg-x-comp}
+\end{equation}
+\begin{equation}
+    \f{\p u}{\p x} + \f{\p v}{\p y} + \f{\p w}{\p z} = 0
+  \label{eq:continuity-avg-x-comp}
+\end{equation}
+%
+Then we substitute the components of the instantaneous fields.
+%
+\begin{multline}
+    \mu \nabla^2 \left(\bar{u} + u^\prime\right) - \f{\p \left(\bar{p} + p^\prime\right)}{\p x} + \rho g_x \\
+    = \rho \left(\f{\p \left(\bar{u} + u^\prime\right)}{\p t} + \left(\bar{u} + u^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p x} + \left(\bar{v} + v^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p y} + \left(\bar{w} + w^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p z} \right),
+  \label{eq:NS-time-avg-subst-comp}
+\end{multline}
+\begin{equation}
+  \f{\p}{\p x}\left(\bar{u} + u^\prime\right)
+  + \f{\p}{\p y}\left(\bar{v} + v^\prime\right)
+  + \f{\p}{\p z}\left(\bar{w} + w^\prime\right) = 0.
+\label{eq:continuity-avg-subst-comp}
+\end{equation}
+
+
+
+\subsection{Time averaging the continuity equation}
+
+Expanding the Eq.~\ref{eq:continuity-avg-subst-comp},
+%
+\begin{equation}
+  \f{\p \bar{u}}{\p x}
+  + \f{\p \bar{v}}{\p y}
+  + \f{\p \bar{w}}{\p z}
+  + \f{\p u^\prime}{\p x}
+  + \f{\p v^\prime}{\p y}
+  + \f{\p w^\prime}{\p z} = 0.
+  \label{eq:continuity-avg-subst-comp-expanded}
+\end{equation}
+
+In engineering, for the most part, we are not interested to those fluctuating components,
+and want to capture the trend of the system.
+We can get rid of some of these fluctuating term using the time averaging method.
+
+\begin{figure}[h]
+  \begin{center}
+    \incfig{velocity-time-avg-and-fluctuating}
+  \end{center}
+  \caption{Veolcity (x-component) field vs time for a turbulent flow. Note the average component (black) and the fluctuating component (orange).}\label{fig:velocity-time-avg-and-fluctuating}
+\end{figure}
+
+The time average (\(\bar{f}\)) of a variable \(f\) is defined by
+%
+\begin{equation}
+  \colorboxed{orange}{
+    \bar{f} = \lim_{T\to\infty}{\f{1}{T} \int_{t_0}^{t_0 + T}{f \d t}}
+  }
+  \label{eq:time-average-formula}
+\end{equation}
+%
+The averaging is done over a period, \(T\),
+which must be short enough to properly capture the trend of the flow,
+and yet long enough to get rid of the fluctuating behavior of the flow.
+Note that time average of the fluctuating component is \(0\),
+%
+\begin{equation}
+  \colorboxed{gray}{
+    \overline{f^\prime} = \f{1}{T} \int_{t_0}^{t_0 + T}{f^\prime \d t} = 0,
+  }
+  \label{eq:time-average-fluctuating-comp}
+\end{equation}
+%
+and time average of the time-averaged component is still an average function of time
+%
+\begin{equation}
+  \colorboxed{gray}{
+    \overline{\bar{f}} = \f{1}{T} \int_{t_0}^{t_0 + T}{\bar{f} \d t} = \bar{f}.
+  }
+  \label{eq:time-average-average-comp}
+\end{equation}
+
+There are other properties related to time averaging.
+%
+\begin{equation}
+  \colorboxed{orange}{
+    \begin{aligned}
+      (a)&\quad \overline{f + g} = \bar{f} + \bar{g}, \\[5pt]
+      (b)&\quad \overline{cf} = c \bar{f}\quad (c \text{ is a constant),} \\[5pt]
+      (c)&\quad \overline{\bar{f}g} = \bar{f} \bar{g}, \\[5pt]
+      (d)&\quad \overline{f^\prime g^\prime} \neq 0, \\[5pt]
+      (e)&\quad \overline{fg} = \bar{f} \bar{g} + \overline{f^\prime g^\prime}, \\[5pt]
+      (f)&\quad \overline{\f{\p f}{\p x}} = \f{\p \bar{f}}{\p x}, \\[5pt]
+      (g)&\quad \overline{\int{f \d x}} = \int{\bar{f} \d x}.
+    \end{aligned}
+  }
+  \label{eq:time-avgerage-props}
+\end{equation}
+
+After time-averaging the Eq.~\ref{eq:continuity-avg-subst-comp-expanded},
+we'll cross out the fluctuating terms:
+%
+\begin{equation}
+  \overline{\f{\p \bar{u}}{\p x}}
+  + \overline{\f{\p \bar{v}}{\p y}}
+  + \overline{\f{\p \bar{w}}{\p z}}
+  + \bcancel{\overline{\f{\p u^\prime}{\p x}}}
+  + \bcancel{\overline{\f{\p v^\prime}{\p y}}}
+  + \bcancel{\overline{\f{\p w^\prime}{\p z}}} = 0.
+  \label{eq:continuity-time-averaged-cancelled}
+\end{equation}
+%
+Thus, after time-averaging the continuity equation looks like so
+%
+\begin{equation}
+  \f{\p \bar{u}}{\p x}
++ \f{\p \bar{v}}{\p y}
++ \f{\p \bar{w}}{\p z} = 0.
+  \label{eq:continuity-time-averaged-final-avg}
+\end{equation}
+%
+As a result, we also have
+\begin{equation}
+  \f{\p {u^\prime}}{\p x}
++ \f{\p {v^\prime}}{\p y}
++ \f{\p {w^\prime}}{\p z} = 0.
+  \label{eq:continuity-time-averaged-final-fluctuating}
+\end{equation}
+
+
+\subsection{Time averaging the x-momentum equation}
+
+Starting by time-averaging the left hand side of the Eq.~\ref{eq:NS-time-avg-subst-comp}, we'll have
+%
+\begin{equation}
+\begin{aligned}
+    &\overline{\mu \nabla^2 \left(\bar{u} + u^\prime\right)} - \overline{\f{\p \left(\bar{p} + p^\prime\right)}{\p x}} + \overline{\rho g_x} \\
+    \implies\quad &\mu \nabla^2 \left(\overline{\bar{u}} + \bcancel{\overline{u^\prime}}\right) - \f{\p \left(\overline{\bar{p}} + \bcancel{\overline{p^\prime}}\right)}{\p x} + \rho g_x \\
+    \implies\quad &\mu \nabla^2 \left(\bar{u}\right) - \f{\p \left(\bar{p}\right)}{\p x} + \rho g_x.
+\end{aligned}
+  \label{eq:NS-time-averaged-lhs}
+\end{equation}
+%
+Now, for the right hand side:
+%
+\begin{equation}
+  \rho
+  \left(
+    \overline{\f{\p \left(\bar{u} + u^\prime\right)}{\p t}}
+  + \overline{\left(\bar{u} + u^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p x}}
+  + \overline{\left(\bar{v} + v^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p y}}
+  + \overline{\left(\bar{w} + w^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p z}}
+  \right). \\
+  \label{eq:NS-time-averaged-rhs}
+\end{equation}
+%
+Except from the temporal derivative term, the other terms are non-linear.
+We first start by time-averaging the time derivative term,
+%
+\begin{equation}
+\begin{aligned}
+  &\overline{\f{\p \left(\bar{u} + u^\prime\right)}{\p t}} \\
+  \implies\quad &\f{\p \left(\overline{\bar{u}} + \bcancel{\overline{u^\prime}}\right)}{\p t} \\
+  \implies\quad &\f{\p \left(\bar{u}\right)}{\p t}
+\end{aligned}
+  \label{eq:NS-time-averaged-rhs-ddt}
+\end{equation}
+%
+For the non-linear terms we consider each one by one.
+Starting from the first non-linear term, we'll have
+%
+\begin{equation}
+  \begin{aligned}
+  &\overline{\left(\bar{u} + u^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p x}} \\[5pt]
+  \implies\quad
+  &\overline{
+    \bar{u} \f{\p \bar{u}}{\p x} + \bar{u} \f{\p u^\prime}{\p x}
+    + u^\prime \f{\p \bar{u}}{\p x} + u^\prime \f{\p u^\prime}{\p x}
+  } \\[5pt]
+  \implies\quad
+  &\overline{\bar{u} \f{\p \bar{u}}{\p x}}
+  + \overline{\bar{u} \f{\p u^\prime}{\p x}}
+  + \overline{u^\prime \f{\p \bar{u}}{\p x}}
+  + \overline{u^\prime \f{\p u^\prime}{\p x}}
+  \label{eq:NS-time-averaged-rhs-nonlinear-first-term-x}
+  \end{aligned}
+\end{equation}
+%
+There are four terms we need to calculate the time-average for:
+%
+\begin{equation}
+  \begin{gathered}
+    \overline{\bar{u} \f{\p \bar{u}}{\p x}}
+    = \bar{u} \overline{\f{\p \bar{u}}{\p x}}
+    = \bar{u} \f{\p \overline{\bar{u}}}{\p x}
+    = \bar{u} \f{\p \bar{u}}{\p x} \\[5pt]
+    %
+    \overline{\bar{u} \f{\p u^\prime}{\p x}}
+    = \bar{u} \overline{\f{\p u^\prime}{\p x}}
+    = \bar{u} \f{\p \bcancel{\overline{u^\prime}}}{\p x}
+    = 0 \\[5pt]
+    %
+    \overline{u^\prime \f{\p \bar{u}}{\p x}}
+    \overset{*}{=} \f{\p \bar{u}}{\p x} \bcancel{\overline{u^\prime}} = 0 \\[5pt]
+    %
+    \overline{u^\prime \f{\p u^\prime}{\p x}} \overset{**}{\neq} 0
+  \end{gathered}
+  \label{eq:NS-time-averaged-rhs-nonlinear-first-term-x-expanded}
+\end{equation}
+%
+\textbf{Note (*)}: average velocity gradient, \(\f{\p \bar{u}}{\p x}\), does not change in the period in which the gradient is time-averaged.
+Thus the gradient of the average velocity is a constant term inside the integral.
+%
+\textbf{(**)}: This can't be simplified any further or dropped to zero.
+%
+
+Similarly, for the second and third nonlinear terms we will have,
+%
+\begin{equation}
+  \begin{aligned}
+    &\overline{\left(\bar{v} + v^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p y}} \\[5pt]
+    \implies\quad
+    &\overline{
+      \bar{v} \f{\p \bar{u}}{\p y} + \bar{v} \f{\p u^\prime}{\p y}
+      + v^\prime \f{\p \bar{u}}{\p y} + v^\prime \f{\p u^\prime}{\p y}
+    } \\[5pt]
+    \implies\quad
+    &\overline{\bar{v} \f{\p \bar{u}}{\p y}}
+    + \overline{\bar{v} \f{\p u^\prime}{\p y}}
+    + \bcancel{\overline{\bar{v} \f{\p u^\prime}{\p y}}}
+    + \bcancel{\overline{v^\prime \f{\p \bar{u}}{\p y}}} \\[5pt]
+    \implies\quad
+    &\bar{v} \f{\p \bar{u}}{\p y} + \overline{v^\prime \f{\p u^\prime}{\p y}}
+  \end{aligned}
+  \label{eq:NS-time-averaged-rhs-nonlinear-first-term-v}
+\end{equation}
+%
+\begin{equation}
+  \begin{aligned}
+    &\overline{\left(\bar{w} + w^\prime\right) \f{\p \left(\bar{u} + u^\prime\right)}{\p z}} \\[5pt]
+    \implies\quad
+    &\overline{
+      \bar{w} \f{\p \bar{u}}{\p z} + \bar{w} \f{\p u^\prime}{\p z}
+      + w^\prime \f{\p \bar{u}}{\p z} + w^\prime \f{\p u^\prime}{\p z}
+    } \\[5pt]
+    \implies\quad
+    &\overline{\bar{w} \f{\p \bar{u}}{\p z}}
+    + \bcancel{\overline{\bar{w} \f{\p u^\prime}{\p z}}}
+    + \bcancel{\overline{w^\prime \f{\p \bar{u}}{\p z}}}
+    + \overline{w^\prime \f{\p u^\prime}{\p z}} \\[5pt]
+    \implies\quad
+    &\bar{w} \f{\p \bar{u}}{\p z} + \overline{w^\prime \f{\p u^\prime}{\p z}}
+  \end{aligned}
+  \label{eq:NS-time-averaged-rhs-nonlinear-first-term-w}
+\end{equation}
+
+
+Therefore, the right hand side of the x component of the time-averaged Navier-Stokes equation will be:
+%
+\begin{equation}
+  \begin{aligned}
+    RHS &= \rho \left(
+      \f{\p \bar{u}}{\p t}
+      + \bar{u} \f{\p \bar{u}}{\p x} + \overline{u^\prime \f{\p u^\prime}{\p x}}
+      + \bar{v} \f{\p \bar{u}}{\p y} + \overline{v^\prime \f{\p u^\prime}{\p y}}
+      + \bar{w} \f{\p \bar{u}}{\p z} + \overline{w^\prime \f{\p u^\prime}{\p z}}
+    \right) \\[5pt]
+      RHS &= \rho \left(
+        \f{\p \bar{u}}{\p t}
+        + \bar{u} \f{\p \bar{u}}{\p x}
+        + \bar{v} \f{\p \bar{u}}{\p y}
+        + \bar{w} \f{\p \bar{u}}{\p z}
+        + \overline{u^\prime \f{\p u^\prime}{\p x}}
+        + \overline{v^\prime \f{\p u^\prime}{\p y}}
+        + \overline{w^\prime \f{\p u^\prime}{\p z}}
+      \right)
+  \end{aligned}
+  \label{eq:NS-time-averaged-rhs-combined}
+\end{equation}
+
+Considering the following relation, the advection term can be transformed into a new form
+
+\begin{equation}
+  \begin{aligned}
+       \bar{u} \f{\p \bar{u}}{\p x}
+    +  \bar{v} \f{\p \bar{v}}{\p y}
+    +  \bar{w} \f{\p \bar{w}}{\p z}
+    &= \f{\p \left({\bar{u}}^2\right)}{\p x}
+    +  \f{\p \left({\bar{v}}^2\right)}{\p y}
+    +  \f{\p \left({\bar{w}}^2\right)}{\p z}
+    -  \bar{u} \underbrace{\left( \f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z}\right)}_{=\;0\text{ (Eq.~\ref{eq:continuity-time-averaged-final-avg})}} \\[5pt]
+    &= \f{\p \left({\bar{u}}^2\right)}{\p x} + \f{\p \left(\bar{u}\bar{v}\right)}{\p y} + \f{\p \left(\bar{u}\bar{w}\right)}{\p z}
+  \end{aligned}
+  \label{eq:advection-term-transformation-avg}
+\end{equation}
+%
+And similarly for the fluctuating terms:
+\begin{equation}
+  \begin{aligned}
+       {u^\prime} \f{\p {u^\prime}}{\p x}
+    +  {v^\prime} \f{\p {v^\prime}}{\p y}
+    +  {w^\prime} \f{\p {w^\prime}}{\p z}
+    &= \f{\p \left({{u^\prime}}^2\right)}{\p x}
+    +  \f{\p \left({{v^\prime}}^2\right)}{\p y}
+    +  \f{\p \left({{w^\prime}}^2\right)}{\p z}
+    -  {u^\prime} \underbrace{\left( \f{\p {u^\prime}}{\p x} + \f{\p {v^\prime}}{\p y} + \f{\p {w^\prime}}{\p z}\right)}_{=\;0\text{ (Eq.~\ref{eq:continuity-time-averaged-final-fluctuating})}} \\[5pt]
+    &= \f{\p \left({{u^\prime}}^2\right)}{\p x} + \f{\p \left({u^\prime}{v^\prime}\right)}{\p y} + \f{\p \left({u^\prime}{w^\prime}\right)}{\p z}
+  \end{aligned}
+  \label{eq:advection-term-transformation-fluctuating}
+\end{equation}
+%
+Now, with the transformation in the Eq.~\ref{eq:advection-term-transformation-avg} and Eq.~\ref{eq:advection-term-transformation-fluctuating}, the right hand side of the Navier-Stokes equation, or Eq.~\ref{eq:NS-time-averaged-rhs-combined}, turns into the following equation
+%
+\begin{equation}
+  \begin{aligned}
+    RHS &= \rho \left(
+    \f{\p \bar{u}}{\p t}
+    %
+    + \f{\p \left({\bar{u}}^2\right)}{\p x}
+    + \f{\p \left(\bar{u}\bar{v}\right)}{\p y}
+    + \f{\p \left(\bar{u}\bar{w}\right)}{\p z}
+    %
+    + \overline{\f{\p \left({{u^\prime}}^2\right)}{\p x}}
+    + \overline{\f{\p \left({u^\prime}{v^\prime}\right)}{\p y}}
+    + \overline{\f{\p \left({u^\prime}{w^\prime}\right)}{\p z}}
+  \right)\\
+  &= \rho \left(
+    \f{\p \bar{u}}{\p t}
+    %
+    + \f{\p \left({\bar{u}}^2\right)}{\p x}
+    + \f{\p \left(\bar{u}\bar{v}\right)}{\p y}
+    + \f{\p \left(\bar{u}\bar{w}\right)}{\p z}
+    %
+    + \f{\p \left(\overline{{{u^\prime}}^2}\right)}{\p x}
+    + \f{\p \left(\overline{{u^\prime}{v^\prime}}\right)}{\p y}
+    + \f{\p \left(\overline{{u^\prime}{w^\prime}}\right)}{\p z}
+  \right)\\
+  \end{aligned}
+  \label{eq:NS-time-averaged-rhs-combined-transformed}
+\end{equation}
+%
+This form is more commonly seen in literature.
+
+Now, we combine the relation for the right-hand-side (Eq.~\ref{eq:NS-time-averaged-rhs-combined-transformed}) and left-hand-side (Eq.~\ref{eq:NS-time-averaged-lhs}) of the time-averaged Navier-Stokes equation, to complete the x-momentum equation,
+
+\begin{multline}
+  \mu \nabla^2 \left(\bar{u}\right) - \f{\p \left(\bar{p}\right)}{\p x} + \rho g_x \\
+  %
+  =
+  %
+  \rho \left(
+    \f{\p \bar{u}}{\p t}
+    %
+    + \f{\p \left({\bar{u}}^2\right)}{\p x}
+    + \f{\p \left(\bar{u}\bar{v}\right)}{\p y}
+    + \f{\p \left(\bar{u}\bar{w}\right)}{\p z}
+    %
+    \colorboxed{orange}{
+    + \f{\p \left(\overline{{{u^\prime}}^2}\right)}{\p x}
+    + \f{\p \left(\overline{{u^\prime}{v^\prime}}\right)}{\p y}
+    + \f{\p \left(\overline{{u^\prime}{w^\prime}}\right)}{\p z}
+    }
+  \right).
+  \label{eq:NS-time-averaged-x}
+\end{multline}
+%
+For the \(y\) and \(z\) direction we also have:
+%
+\begin{multline}
+  \mu \nabla^2 \left(\bar{v}\right) - \f{\p \left(\bar{p}\right)}{\p y} + \rho g_y \\
+  %
+  =
+  %
+  \rho \left(
+    \f{\p \bar{v}}{\p t}
+    %
+    + \f{\p \left(\bar{u}\bar{v}\right)}{\p x}
+    + \f{\p \left({\bar{v}}^2\right)}{\p y}
+    + \f{\p \left(\bar{v}\bar{w}\right)}{\p z}
+    %
+    \colorboxed{orange}{
+      + \f{\p \left(\overline{{u^\prime}{v^\prime}}\right)}{\p x}
+      + \f{\p \left(\overline{{{v^\prime}}^2}\right)}{\p y}
+      + \f{\p \left(\overline{{v^\prime}{w^\prime}}\right)}{\p z}
+    }
+  \right).
+  \label{eq:NS-time-averaged-y}
+\end{multline}
+%
+\begin{multline}
+  \mu \nabla^2 \left(\bar{w}\right) - \f{\p \left(\bar{p}\right)}{\p z} + \rho g_z \\
+  %
+  =
+  %
+  \rho \left(
+    \f{\p \bar{w}}{\p t}
+    %
+    + \f{\p \left(\bar{u}\bar{w}\right)}{\p x}
+    + \f{\p \left(\bar{v}\bar{w}\right)}{\p y}
+    + \f{\p \left({\bar{w}}^2\right)}{\p z}
+    %
+    \colorboxed{orange}{
+      + \f{\p \left(\overline{{u^\prime}{w^\prime}}\right)}{\p x}
+      + \f{\p \left(\overline{{v^\prime}{w^\prime}}\right)}{\p y}
+      + \f{\p \left(\overline{{{w^\prime}}^2}\right)}{\p z}
+    }
+  \right).
+  \label{eq:NS-time-averaged-z}
+\end{multline}
+
+Note that all terms in the time-averaged equation (including partial derivatives and such) are all constant over the period in which the time-integral is being performed.
+%
+The three time-averaged fluctuating term on the right-hand-side of the Eq.~\ref{eq:NS-time-averaged-x} contain terms that are called ``Reynolds' stress terms''. These stress term, as their name suggest, have the unit of stress: \([N/m^2]\),
+%
+\begin{equation}
+  \begin{aligned}
+    \tau^\prime_{ij}
+    &= \rho \overline{u^\prime_i u^\prime_j} \\[5pt]
+    &= \begin{pmatrix}
+      \overline{{{u^\prime}}^2}
+    & \overline{{u^\prime}{v^\prime}}
+    & \overline{{u^\prime}{w^\prime}} \\
+    %
+      \overline{{u^\prime}{v^\prime}}
+    & \overline{{{v^\prime}}^2}
+    & \overline{{v^\prime}{w^\prime}} \\
+    %
+      \overline{{u^\prime}{w^\prime}}
+    & \overline{{v^\prime}{w^\prime}}
+    & \overline{{{w^\prime}}^2}
+    \end{pmatrix}
+  \end{aligned}
+  \label{eq:reynolds-stress-matrix}
+\end{equation}
+%
+\begin{quote}
+  \emph{``In fluid dynamics, the Reynolds stress is the component of the total stress tensor in a fluid obtained from the averaging operation over the Navier–Stokes equations to account for turbulent fluctuations in fluid momentum.''}--Wikipedia
+\end{quote}
+%
+The time-averaged equations can be solved if the Reynolds stresses can be related to the mean flow quantities.
+This is known as the ``\textbf{closure problem}''.
+
+
+
+\section{Boussinesq Assumption}\label{sec:boussinesq-assumption}
+
+The \emph{Boussinesq assumption} (aka \emph{Boussinesq approximation}, \emph{Boussinesq hypothesis} and sometimes \emph{eddy viscosity model}) was proposed by Boussinesq in 1877. He postulated that the Reynolds stresses could be linked to the mean rates of deformation.
+%
+\begin{equation}
+  \begin{gathered}
+    -\rho \overline{u^\prime u^\prime} = 2 \mu_T \f{\p \bar{u}}{\p x} - \f{2}{3} \rho k,\quad
+    -\rho \overline{u^\prime v^\prime} = \mu_T \left( \f{\p \bar{v}}{\p x} + \f{\p \bar{u}}{\p y} \right),\quad
+    -\rho \overline{u^\prime w^\prime} = \mu_T \left( \f{\p \bar{w}}{\p x} + \f{\p \bar{u}}{\p z} \right), \\
+    %
+    -\rho \overline{u^\prime v^\prime} = \mu_T \left( \f{\p \bar{v}}{\p x} + \f{\p \bar{u}}{\p y} \right),\quad
+    -\rho \overline{v^\prime v^\prime} = 2 \mu_T \f{\p \bar{v}}{\p y} - \f{2}{3} \rho k,\quad
+    -\rho \overline{v^\prime w^\prime} = \mu_T \left( \f{\p \bar{w}}{\p y} + \f{\p \bar{v}}{\p z} \right), \\
+    %
+    -\rho \overline{u^\prime w^\prime} = \mu_T \left( \f{\p \bar{u}}{\p z} + \f{\p \bar{w}}{\p z} \right),\quad
+    -\rho \overline{v^\prime w^\prime} = \mu_T \left( \f{\p \bar{v}}{\p z} + \f{\p \bar{w}}{\p y} \right),\quad
+    -\rho \overline{w^\prime w^\prime} = 2 \mu_T \f{\p \bar{w}}{\p z} - \f{2}{3} \rho k,
+  \end{gathered}
+  \label{eq:Boussinesq-approximation}
+\end{equation}
+%
+The right-hand side is analogous to \emph{Newton’s law of viscosity} (\(\tau = \mu\,{\p u}/{\p y}\)), except for the appearance of the \textbf{turbulent} or \textbf{eddy viscosity}, \(\mu_T\), and \textbf{turbulent kinetic energy}, \(k\).
+Note that \(\mu_T\) is artificial and controls the \textbf{strength} of the diffusion.
+This means that when the turbulence is stronger, there's a greater transform of momentum from faster moving layers to slower moving layers.
+This diffusion is always in the same direction as the mean velocity gradient.
+Note, also, that Further modeling is needed to calculate \(\mu_T\).
+\(k\) is obtained via the following equation:
+%
+\begin{equation}
+  \colorboxed{orange}{
+    k = \f{1}{2} \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right)
+  }
+  \label{eq:turbulent-kinetic-energy}
+\end{equation}
+%
+We can simplify all the above relations in the Eq.~\ref{eq:Boussinesq-approximation}
+%
+\begin{equation}
+  \colorboxed{orange}{
+    -\overline{u^\prime_i u^\prime_j} = \nu_T \left( \f{\p \bar{u_i}}{\p x_j} + \f{\bar{u_j}}{\p x_i}\right) - \f{2}{3} k \delta_{ij}
+  }
+  \label{eq:Boussinesq-approximation-index-notation}
+\end{equation}
+%
+where \(\delta_{ij}\) is the Kronecker delta, which is equal to \(1\) when \(i = j\) and \(0\) otherwise.
+
+The value for \(\mu_T\) and \(k\) is obtained based on experiments and through curve fitting the best value is chosen.
+Many turbulence models build on top of this assumption, e.g., the \keModel model.
+From here on out, we assume the flow is isotropic and thus \(\mu_T\), and \(k\) are constant and direction independent.
+
+\subsection{Small note on normal stresses}
+
+Unlike shear Reynolds stresses, the normal stresses have an extra term, \(\f{2}{3} \rho k\).
+In this subsection we'll explain why this extra term exists
+[notes in this section is taken from \href{https://youtu.be/SVYXNICeNWA}{\color{blue}this} video].
+
+If we assume, just similar to shear stresses that normal Reynolds stress is as follows,
+%
+\begin{equation}
+  \rho \overline{u^\prime u^\prime} = 2 \mu_T \f{\bar{u}}{\p x},
+  \label{eq:normal-Reynolds-stree-incorrect}
+\end{equation}
+%
+Then we will have a small problem...
+The definition of the turbulent kinetic energy tells us
+%
+\begin{equation}
+    k = \f{1}{2} \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right).
+\end{equation}
+%
+Hence, the sum of the normal turbulent stresses should give
+%
+\begin{equation}
+  \begin{aligned}
+    -\left(\rho \overline{u^\prime u^\prime} + \rho \overline{v^\prime v^\prime} + \rho \overline{w^\prime w^\prime}\right)
+    &= -\rho \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right) \\
+    &= -2 \rho k.
+  \end{aligned}
+\end{equation}
+%
+However, if we add our three normal stresses together we get:
+%
+\begin{equation}
+   -\rho \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right) \\
+   =
+   2 \mu_T \left(\f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z} \right).
+\end{equation}
+%
+If the flow is incompressible then the continuity equation tells us that,
+%
+\begin{equation}
+  \f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z} = 0.
+\end{equation}
+%
+Hence:
+%
+\begin{equation}
+   -\rho \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right)
+   = 0\quad \text{[Incompressible Flows]}.
+\end{equation}
+%
+This is clearly incorrect!
+To correct the calculation of the normal stresses, we subtract 1/3rd of the error from each of the normal components.
+%
+\begin{equation}
+  \begin{aligned}
+  -\rho \overline{u^\prime u^\prime}
+  &=
+  2 \mu_T \left(
+            \f{\p \bar{u}}{\p x}
+            - \f{1}{3} \left(\f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z}\right)
+          \right)
+  - \f{1}{3}\left(2 \rho k\right) \\
+  %
+  -\rho \overline{v^\prime v^\prime}
+  &=
+  2 \mu_T \left(
+            \f{\p \bar{v}}{\p y}
+            - \f{1}{3} \left(\f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z}\right)
+          \right)
+  - \f{1}{3}\left(2 \rho k\right) \\
+  %
+  -\rho \overline{w^\prime w^\prime}
+  &=
+  2 \mu_T \left(
+            \f{\p \bar{w}}{\p z}
+            - \f{1}{3} \left(\f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z}\right)
+          \right)
+  - \f{1}{3}\left(2 \rho k\right)
+  \end{aligned}
+\end{equation}
+%
+As a check, we add the normal stresses together and we get the turbulent kinetic energy!
+%
+\begin{equation}
+   -\rho \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right)
+   =
+   2 \mu_T
+   \left(
+     \bcancel{\f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z}}
+     - \bcancel{\left(\f{\p \bar{u}}{\p x} + \f{\p \bar{v}}{\p y} + \f{\p \bar{w}}{\p z}\right)}
+   \right)
+   - 2 \rho k,
+\end{equation}
+%
+\begin{equation}
+   -\rho \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right)
+   =
+   - 2 \rho k,
+\end{equation}
+%
+\begin{equation}
+  \colorboxed{gray}{
+    k = \f{1}{2} \left(\overline{u^\prime u^\prime} + \overline{v^\prime v^\prime} + \overline{w^\prime w^\prime}\right).
+  }
+\end{equation}
+
+
+\subsection{Compressible flow}
+
+All the equations discussed in Section~\ref{sec:boussinesq-assumption} were derived for the incompressible flow.
+For compressible flow, the velocity field is not divergence free and thus we have a different equation for normal stress terms.
+%
+\begin{equation}
+  \begin{aligned}
+    \text{shear stress:}&\quad
+    -\rho \overline{u^\prime_i u^\prime_j} = \mu_T \left(\f{\p \bar{u}_i}{\p x_j} + \f{\p \bar{u}_j}{\p x_i}\right), \\
+  %
+  \text{normal stress:}&\quad
+    -\rho \overline{u^\prime_i u^\prime_j}
+    =
+    \mu_T \left(\f{\p \bar{u}_i}{\p x_j} + \f{\p \bar{u}_j}{\p x_i} - \f{2}{3} \f{\p \bar{u}_k}{\p x_k} \right)
+    - \f{2}{3} \rho k; \quad (i = j).
+  \end{aligned}
+  \label{eq:reynolds-stress-compressible-flow}
+\end{equation}
+%
+Note that the repeated indices (\(k\),\(k\)) indicate summation/contraction.
+We can take this a step further and express the Reynolds stress in one equation, by use of the Kronecker delta, \(\delta_{ij}\).
+We multiply the extra terms in the normal components by the Kronecker delta.
+They will vanish when \(i \neq j\)!
+Hence we can bring everything together:
+%
+\begin{equation}
+  \colorboxed{orange}{
+    -\rho \overline{u^\prime_i u^\prime_j}
+    =
+    \mu_T \left(\f{\p \bar{u}_i}{\p x_j} + \f{\p \bar{u}_j}{\p x_i} - \f{2}{3} \f{\p \bar{u}_k}{\p x_k} \delta_{ij} \right)
+    - \f{2}{3} \rho k \delta_{ij}.
+  }
+  \label{eq:reynolds-stress-term-compressible-flow-combined}
+\end{equation}
+
+
+\subsection{Vector form}
+
+The vector form of the Eq.~\ref{eq:reynolds-stress-term-compressible-flow-combined} is the following:
+%
+\begin{equation}
+  -\rho \overline{\mb{U}^\prime \mb{U}^\prime}
+  =
+  \mu_T \left(
+    (\nabla \mb{U}) + (\nabla \mb{U})^T - \f{2}{3} (\nabla \cdot \mb{U}) \mb{I}
+  \right)
+  - \f{2}{3} \rho k \mb{I}
+  \label{eq:reynolds-stress-term-vector-form}
+\end{equation}
+
+
+\subsection{Strain Rate Tensor}
+
+We can use the mean rate of strain tensor, \(S_{ij}\), which is defined as:
+%
+\begin{equation}
+  S_{ij} = \f{1}{2} \left( \f{\p \bar{u}_i}{\p x_j} + \f{\p \bar{u}_j}{\p x_i} \right),
+  \label{eq:mean-strain-rate-tensor}
+\end{equation}
+%
+or even more compact, we can use the \emph{deviatoric part} (or trace-less strain rate tensor) of this tensor \(S^*_{ij}\):
+%
+\begin{equation}
+  S^*_{ij}
+  = \f{1}{2}
+  \left(
+    \f{\p \bar{u}_i}{\p x_j}
+    + \f{\p \bar{u}_j}{\p x_i}
+    - \f{1}{3} \f{\p \bar{u}_k}{\p x_k} \delta_{ij}
+  \right).
+  \label{eq:mean-strain-rate-tensor-deviatoric-part}
+\end{equation}
+%
+Many authors use the deviatoric part to make the equation compact.
+It has no special meaning.
+We will have the following two equations for the Reynolds stress terms based on the Eq.~\ref{eq:mean-strain-rate-tensor} and Eq.~\ref{eq:mean-strain-rate-tensor-deviatoric-part}, respectively
+%
+\begin{equation}
+  \colorboxed{orange}{
+    -\rho \overline{u^\prime_i u^\prime_j}
+    =
+    2 \mu_T \left(S_{ij} - \f{1}{3} \f{\p \bar{u}_k}{\p x_k} \delta_{ij} \right)
+    - \f{2}{3} \rho k \delta_{ij}.
+  }
+  \label{eq:reynolds-stress-term-with-strain-rate-tensor}
+\end{equation}
+%
+\begin{equation}
+  \colorboxed{orange}{
+    -\rho \overline{u^\prime_i u^\prime_j}
+    =
+    2 \mu_T S^*_{ij}
+    - \f{2}{3} \rho k \delta_{ij}.
+  }
+  \label{eq:reynolds-stress-term-with-strain-rate-tensor-deviatoric-part}
+\end{equation}
+%
+You will see both of these definitions in the literature.
+
+
+\subsection{OpenFOAM}
+
+In OpenFOAM you can find the formula in \mono{eddyViscosity.C}:
+%
+\begin{minted}[escapeinside=||]{cpp}
+((2.0/3.0)*|\sfhlmono{I}|)*tk() - (nut_)*|\sfhlmono{dev}|(twoSymm(fvc::grad(this->U_)))
+\end{minted}
+%
+\mono{dev} indicates the deviatoric part, and \mono{I} is the identity matrix / Kronecker delta.
+
+
+\begin{listing}[H]
+  \renewcommand\theFancyVerbLine{%
+    \ifnum\value{FancyVerbLine}=86
+      \boxed{\texttt{\arabic{FancyVerbLine}}}
+    \else
+      \ifnum\value{FancyVerbLine}=120
+        \boxed{\texttt{\arabic{FancyVerbLine}}}
+      \else
+        \textcolor{black}{\color{MidGrey}\arabic{FancyVerbLine}}%
+      \fi
+    \fi
+  }
+\begin{minted}[linenos,firstnumber=84,highlightlines={120},escapeinside=||]{cpp}
+template<class BasicTurbulenceModel>
+Foam::tmp<Foam::volSymmTensorField>
+Foam::eddyViscosity<BasicTurbulenceModel>::|\sfhlmono{R()}| const
+{
+  tmp<volScalarField> |\sfhlmono{tk(k())}|;
+
+    // Get list of patchField type names from k
+    wordList patchFieldTypes(tk().boundaryField().types());
+
+    // For k patchField types which do not have an equivalent for symmTensor
+    // set to calculated
+    forAll(patchFieldTypes, i)
+    {
+        if
+        (
+           !fvPatchField<symmTensor>::patchConstructorTablePtr_
+                ->found(patchFieldTypes[i])
+        )
+        {
+            patchFieldTypes[i] = fvPatchFieldBase::calculatedType();
+        }
+    }
+
+    return tmp<volSymmTensorField>
+    (
+        new |\sfhlmono{volSymmTensorField}|
+        (
+            IOobject
+            (
+                IOobject::groupName("R", this->alphaRhoPhi_.group()),
+                this->runTime_.timeName(),
+                this->mesh_,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE,
+                IOobject::NO_REGISTER
+            ),
+            ((2.0/3.0)*I)*tk() - (nut_)*devTwoSymm(fvc::grad(this->U_)),
+            patchFieldTypes
+        )
+    );
+}
+\end{minted}
+\caption{\small{\protect\path{$FOAM_SRC/TurbulenceModels/turbulenceModels/eddyViscosity/eddyViscosity.C}}}
+\end{listing}
+%
+Also, In the \mono{eddyViscosity.H}, we have the following:
+%
+% |\setcounter{FancyVerbLine}{1}|
+\begin{listing}[H]
+  \renewcommand\theFancyVerbLine{%
+    \ifnum\value{FancyVerbLine}=103
+      \setcounter{FancyVerbLine}{107}\vdots
+    \else
+      \ifnum\value{FancyVerbLine}=113
+        \setcounter{FancyVerbLine}{118}\vdots
+      \else
+        \ifnum\value{FancyVerbLine}=124
+          \vdots
+        \else
+          \ifnum\value{FancyVerbLine}=101
+            \vdots
+          \else
+            \color{MidGrey}\arabic{FancyVerbLine}%
+          \fi
+        \fi
+      \fi
+    \fi
+  }
+\begin{minted}[linenos,firstnumber=101]{cpp}
+
+    // Member Functions
+
+        //- Return the turbulence viscosity
+        virtual tmp<volScalarField> nut() const
+        {
+          return nut_;
+        }
+
+        //- Return the turbulence kinetic energy
+        virtual tmp<volScalarField> k() const = 0;
+
+        //- Return the Reynolds stress tensor
+        virtual tmp<volSymmTensorField> R() const;
+
+\end{minted}
+\caption{{\protect\path{$FOAM_SRC/TurbulenceModels/turbulenceModels/eddyViscosity/eddyViscosity.H}}}
+\end{listing}
+
+
+
+% \textorpdfstring{math} to fix the issue of hyperref throwing warning when math is in the section title
+\subsection{How \texorpdfstring{\(\mu_T\)}\ \ is calculated?}
+
+\(mu_T\) is calculated with the chosen turbulence model (like \keModel).
+We solve an eqaution for \(k\) and \(\epsilon\), which allows us to calculate \(mu_T\)
+%
+\begin{equation}
+  \mu_T = \rho C_{\mu} \f{k^2}{\epsilon}
+  \qquad
+  [k\text{-}\epsilon]
+  \label{eq:mu_t-formula-k-epsilon}
+\end{equation}
+%
+Once \(\mu_T\) has been calculated, use the eddy viscosity hypothesis to calculate the Reynolds stresses.
+%
+\begin{equation}
+  -\rho \overline{u^\prime_i u^\prime_j} = 2 \mu_T S^*_{ij} - \f{2}{3} \rho k \delta_{ij}
+\end{equation}
+%
+Now the RANS equations can be solved.
+
+
+\subsection{Limitations}
+
+Craft et al. \cite{craft1996development} show some limitations of the linear eddy viscosity models (like \keModel)
+
+
+\subsection{Iostropic Turbulence}
+
+If the turbulent fluctuations are completely isotropic, that is, if they do not have any directional preference, then the off-diagonal components of u i u j ¯ vanish, and the normal stresses are equal.
+(\url{https://www.sciencedirect.com/topics/engineering/isotropic-turbulence})
