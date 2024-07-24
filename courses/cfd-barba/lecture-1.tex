@@ -1,0 +1,172 @@
+\chapter{Introduction To CFD}
+
+\section{Navier-Stokes equation}
+
+Recall the (incompressible) Navier-Stokes equation:
+%
+\begin{equation}
+  \underbrace{\vphantom{\f{}{\rho}}\f{\p \mb{U}}{\p t}}_{\substack{\text{unsteady} \\ \text{term}}}
+  + \underbrace{\vphantom{\f{}{\rho}}\left(\mb{U} \cdot \nabla\right) \mb{U}}_{\substack{\text{convective} \\ \text{acceleration} \\ \text{term}}}
+  =
+  \underbrace{\vphantom{\f{}{\rho}}-\f{\nabla p}{\rho}}_{\substack{\text{pressure} \\ \text{gradient} \\ \text{term}}}
+  + \underbrace{\vphantom{\f{}{\rho}}\nu \nabla^2 \mb{U}}_{\substack{\text{viscous} \\ \text{diffusion} \\ \text{term}}}
+  \label{eq:navier-stokes}
+\end{equation}
+%
+In \cref{eq:navier-stokes} \(\mb{U}\) is the velocity vector field (\(\mb{U} = u\mb{i} + v\mb{j} + w\mb{k}\)), \(p\) is the thermodynamic pressure, and \(\nu\) represents the viscosity of the fluid.
+Furthermore, An important assumption has been made for this equation and that is the fluid is Newtonian.
+%
+\begin{quote}
+  \itshape
+  ``A \textbf{Newtonian fluid} is a fluid in which the viscous stresses arising from its flow are at every point linearly correlated to the local strain rate --- the rate of change of its deformation over time. Stresses are proportional to the rate of change of the fluid's velocity vector.'' --Wikipedia
+\end{quote}
+%
+Therefore, this equation does not describe the blood flow, which is a non-Newtonian fluid, accurately.
+
+Another important assumption is that the flow is incompressible, meaning the velocity vector is divergence free (\(\mb{U} \cdot \nabla = 0\))
+%
+\begin{equation}
+\begin{aligned}
+  &\f{\D \rho}{\D t} = \f{\p \rho}{\p t} + \left( \bcancel{\mb{U} \cdot \nabla} \right) \rho = 0 \\
+  \implies \quad
+  &\f{\p \rho}{\p t} = 0 \quad \implies \quad \rho = \text{constant}.
+\end{aligned}
+  \label{eq:continuity-incompressible}
+\end{equation}
+Note, however, that the term \emph{incompressible} does \textbf{not} mean that the density of the fluid is constant.
+It only means that fluid while flowing under the specific condition of a fluid flow, does not experience change in it's density.
+
+The convective acceleration term in \cref{eq:navier-stokes} (\(\left(\mb{U} \cdot \nabla\right) \mb{U}\)) is a \emph{non-linear} term (because of the second exponent of velocity field), and the viscous diffusion term (\(\nu \nabla^2 \mb{U}\)) has a \emph{second order} partial derivative (\(\nabla^2\)). Thus, the Navier-Stokes equation is a second order, non-linear partial differential equation. This non-linearity makes this equation very hard to solve and interesting! However, with certain assumption there may be some solution for this equation.
+
+\section{Inviscid Flow}
+
+Inviscid flow means effects of viscosity can be neglected, hence \(\nu = 0\). As a result we will have
+%
+\begin{equation}
+  \f{\p \mb{U}}{\p t} + \left( \mb{U} \cdot \nabla \right) \mb{U} = -\f{\nabla{p}}{\rho}
+  \label{eq:euler-equation}
+\end{equation}
+%
+The \cref{eq:euler-equation} is known as the \emph{Euler equation}.
+Although we do not have to deal with viscous diffusion, we still have a non-linear term.
+
+
+\section{Solution}
+
+Computation fluid dynamics is the analysis of fluid systems by means of computer simulations to get a solution.
+But, what is and constitute a solution of a fluid system?
+%
+\begin{itemize}
+  \item The velocity (vector) field (in every point in the domain we want to know three components of fluid velocity)
+  \item The pressure (scalar) field.
+\end{itemize}
+%
+For more complex situations, the Navier-Stokes needs to, perhaps, be coupled with heat transfer equations, chemical reactions (e.g. kinetic reactions), etc.
+
+
+\section{Why CFD?}
+
+But why do we need CFD?
+There are very few known analytical solution to the Navier-Stokes equation.
+These solution are obtained via simplifying assumptions (symmetry, unidirectional, etc.) that are not common in real-life engineering problems.
+Examples are: laminar flow inside a pipe, flow between parallel pipes, flow between two concentric pipes.
+As a result, we are left with only two options for real-life flows: (1) experimental methods, and (2) computational methods (CFD).
+Also, experimental methods are not always feasible whether it be for the costs, dangers involved, difficulty of visualization, or lack of technologies.
+For example analysis of fluid flow inside the lung
+Which leaves us with the only last options which is CFD.
+Another reason CFD might be the best options is that it can quickly test many scenarios, to answer ``what if''.
+It can also faster or easier than experiment.
+Simulations are also used in movies for entertainment purposes.
+
+\textcolor{red}{[TODO: add pictures]}
+
+\section{Basic Ingredients of CFD}
+
+
+\subsection{the mathematical model}
+
+This includes
+\begin{itemize}
+  \item set of partial differential equations that describe a physical model,
+  \item integral-differential equations,
+  \item boundary and initial conditions associated with those equations.
+\end{itemize}
+%
+It is important to emphasize that there's always an unavoidable degree of empiricism in the models.
+Therefore any model assumption can result in errors.
+It is not unusual that discrepancies between the CFD solution and an experimental data ends up being due to the fact that the mathematical model was not an appropriate description of the physical problem to start with.
+That's why it is of utmost importance to understand the physical model and it limitations.
+%
+\begin{figure}[ht]
+  \begin{center}
+    \incfig{cfd-ingredients-model}
+  \end{center}
+  \caption{Mathematical model must be carefully tailored for a target application.}\label{fig:ingredients-model}
+\end{figure}
+%
+Note that the mathematical model will always have some degree of simplifications and you must make sure those simplifications are well-chosen and appropriate.
+
+\subsection{\textcolor{gray}{choose} discretization method}
+
+The solution method now is going to be designed for this mathematical model, so whatever we have assumed is now was carried on forward!
+Means of discretization means a method for for approximating the mathematical model (PDE, or integral-differential equations, etc.) by a system of algebraic equations, which we know how to solve (e.g., using linear solvers).
+%
+\begin{equation}
+\begin{aligned}
+  \mathcal{L}\left( u(\mb{X}) \right) = f(\mb{X}) \quad &\implies \quad \mb{A}\mb{x} = \mb{b} \\
+  \text{infinite dimensional world} \quad &\implies \quad \text{finite dimensional world}
+\end{aligned}
+\end{equation}
+%
+where \(u(\mb{X})\) and \(f(u(\mb{X}))\) are functions, \(\mb{X}\) is position vector in space, and \(\mathcal{L}\) represents a differential operator, which applies to a function, in this case \(u\).
+\(\mathcal{L}\left( u(\mb{X}) \right) = f(\mb{X})\) essentially represents a PDE and we want to convert it to a linear system of algebraic equations, \(\mb{A}\mb{x} = \mb{b}\). Obviously when we go from an infinite dimensional world to a finite dimensional world, there will be a loss of information.
+
+The most important methods of discretizations are:
+%
+\begin{itemize}
+  \item Finite Difference Method (FDM),
+  \item Finite Element Method (FEM),
+  \item Finite Volume Method (FVM),
+  \item Spectral Methods,
+  \item Boundary Element Method (BEM),
+  \item Particle Methods.
+\end{itemize}
+
+There are two aspects to discretizations, considering the fact that computers only understand (finite) numbers:
+%
+\begin{itemize}
+  \item \textbf{Geometry}. The traditional way to discretize the geometry is the grid (or a mesh), but there are others (particle).
+    How fine the grid is, how well it conforms the desired body or shape, highly affects the accuracy of the simulation results.
+  \item \textbf{Model}. We want all mathematical operators (\(\nf{\p}{\p x}, ...\)) to be transformed into arithmetic operations, on grid points.
+\end{itemize}
+
+
+\subsection{Analyze \textcolor{gray}{the numerical scheme}}
+
+All \emph{numerical scheme} (which convert PDE into algebraic equations) must satisfy certain number of conditions to be acceptable.
+%
+\begin{itemize}
+  \item consistency,
+  \item stability,
+  \item convergence.
+\end{itemize}
+%
+We also must analyze the accuracy of the numerical scheme.
+
+
+\subsection{Solve}
+
+We finally need to solve the numerical scheme knowing that it's gonna produce numerically acceptable solutions (although not necessarily correct as still the modeling might be done incorrectly), i.e., values of flow field variables on the grid points.
+For this final step we can have two situations:
+%
+\begin{itemize}
+  \item unsteady (time-dependent) \(\implies\) ODE (time-integrators are needed)
+  \item steady (time-independent) \(\implies\) algebraic system of equations (linear solvers are needed)
+\end{itemize}
+
+
+\subsection{Post-processing, Visualization}
+
+Once the solution is obtained from computations, they must be visualized in order to understand the solution.
+
+\textcolor{red}{[TODO: add beautiful CFD images]}

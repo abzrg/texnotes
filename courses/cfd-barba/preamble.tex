@@ -1,0 +1,230 @@
+\usepackage[a4paper,margin=2cm]{geometry}
+
+%- Font
+\usepackage[utf8]{inputenc}
+% \usepackage{palatino}
+% \usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+
+
+
+%- Babel
+\usepackage[english]{babel}
+
+
+
+%- Bibliogrophy
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{unsrtnat}
+
+
+
+%- Hyperref
+\usepackage[hidelinks]{hyperref}
+\pdfstringdefDisableCommands{\def\varepsilon{\textepsilon}}
+\usepackage{bookmark}% faster updated bookmarks
+
+
+
+%- tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,shapes,fadings,chains}
+\tikzset{%
+    base/.style={rectangle, minimum width=3.5cm, minimum height=0.8cm,fill=gray!10},
+}
+
+
+%- Math stuff
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{nicefrac}
+
+\newcommand{\f}{\frac}
+\newcommand{\nf}{\nicefrac}
+\newcommand{\mb}{\mathbf}
+\newcommand{\degree}{\ensuremath{^\circ\,}}
+\newcommand{\tr}[1]{\mathrm{Tr}\left({#1}\right)}
+\newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\d}{\mathop{}\!\mathrm{d}} % total derivative
+\newcommand{\D}{\mathop{}\!\mathrm{D}} % total derivative
+\newcommand{\p}{\partial}
+\newcommand{\rmm}{\mathrm}
+\newcommand{\mr}{\mathrm}
+
+\newcommand{\U}{\textbf{U}}
+
+\newcommand{\eqnref}[1]{Eq.~\ref{#1}}
+
+% Put x \to \infty below \lim
+\let\svlim\lim\def\lim{\svlim\limits}
+%Make implies and impliedby shorter
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+
+% Swap epsilon and varepsilon
+\let\epsilonOld\epsilon
+\let\epsilon\varepsilon   %<------- epsilon == varepsilon
+\let\varepsilon\epsilonOld
+
+% Add \contra symbol to denote contradiction
+\usepackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+% Fancy script capitals
+\usepackage{mathrsfs}
+\usepackage{cancel}
+% Bold math
+\usepackage{bm}
+% Some shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+
+
+
+%- clever reference (must be after hyperref and amsmath)
+\usepackage{cleveref}
+
+
+
+
+%- Figures
+\usepackage{graphicx}
+\graphicspath{{./figures}}
+% reduce the empty space above the caption
+% https://tex.stackexchange.com/a/45996/220469
+%\setlength{\abovecaptionskip}{-3pt plus 0pt minus 0pt}
+% or
+\usepackage[skip=2pt]{caption}
+
+% Figure support for Inkscape
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+
+
+
+
+%- Code listings
+\definecolor{LightGrey}{HTML}{fafafa}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% % \usepackage{listings}
+% % \lstdefinestyle{mystyle}{
+% %     backgroundcolor=\color{backcolour},
+% %     commentstyle=\color{codegreen},
+% %     keywordstyle=\color{magenta},
+% %     numberstyle=\tiny\color{codegray},
+% %     stringstyle=\color{codepurple},
+% %     basicstyle=\ttfamily\footnotesize,
+% %     breakatwhitespace=false,
+% %     breaklines=true,
+% %     captionpos=b,
+% %     keepspaces=true,
+% %     numbers=left,
+% %     numbersep=5pt,
+% %     showspaces=false,
+% %     showstringspaces=false,
+% %     showtabs=false,
+% %     tabsize=2,
+% %     escapeinside={/@}{@/)}, % escape characters to write latex code in the listing (e.g. highlighting) (  (*@  \textcolor{blue}{code}  @*) )
+% %     % columns=fullflexible,  % fixes issues related to spacing of the tex code inside lstlistings
+% %     moredelim=[is][\underbar]{_}{_},
+% % }
+% % \lstset{ style=mystyle }
+% \usepackage{color} % for highlight purpose
+% \usepackage[cache=false,outputdir=build]{minted}
+% \definecolor{LightBrown}{rgb}{0.95,0.95,0.92}
+% \definecolor{LightGrey}{HTML}{fafafa}
+% \definecolor{MidGrey}{HTML}{8a8a8a}
+% % \setminted[<language>]{<key=value,...>}
+% \setminted{
+% fontsize=\footnotesize,
+% bgcolor=LightBrown,
+% }
+% \renewcommand{\theFancyVerbLine}{\textcolor{MidGrey}{\arabic{FancyVerbLine}}}
+% % reduce the space between caption and listing
+% \AtEndEnvironment{listing}{\vspace{-20pt}}
+
+
+
+
+
+%- Units
+\usepackage{siunitx}
+
+
+
+
+%- Paths and urls
+% xurl: a seemingly better version of url, which solves the problem long urls/paths not breaking.
+\usepackage{xurl}
+
+
+
+
+%- Colored boxed for amsmath
+% https://tex.stackexchange.com/a/326380/220469
+% Definition of \boxed in amsmath.sty:
+% \newcommand{\boxed}[1]{\fbox{\m@th$\displaystyle#1$}}
+\usepackage{xcolor}
+\definecolor{LightBlue}{HTML}{e6feff}
+%stroke-fill-hl
+\newcommand{\sfhl}{\fcolorbox{LightBlue}{LightBlue}}
+%stroke-fill-hl-mono (mono version)
+\newcommand{\sfhlmono}[1]{\fcolorbox{LightBlue}{LightBlue}{\texttt{#1}}}
+
+% Syntax: \colorboxed[<color model>]{<color specification>}{<math formula>}
+\newcommand*{\colorboxed}{}
+\def\colorboxed#1#{%
+  \colorboxedAux{#1}%
+}
+\newcommand*{\colorboxedAux}[3]{%
+  % #1: optional argument for color model
+  % #2: color specification
+  % #3: formula
+  \begingroup
+    \colorlet{cb@saved}{.}%
+    \color#1{#2}%
+    \boxed{%
+      \color{cb@saved}%
+      #3%
+    }%
+  \endgroup
+}
+
+
+
+
+%- chapter settings
+% Use "Lecture" as chaptername
+\makeatletter
+\renewcommand{\@chapapp}{Lecture}
+\makeatother
+
+
+
+
+%- Some nice helpers
+\usepackage{xspace}
+\newcommand{\keModel}{\(k\text{-}\epsilon\)\xspace}
+\newcommand{\mono}{\texttt}
+
+
+
+%- There's a chpater-0 and for that we need to start numbering equations from chapter 0
+% https://tex.stackexchange.com/a/167032/220469
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
