@@ -1,0 +1,19 @@
+\begin{tikzpicture}[scale=0.5]
+  \begin{pgfonlayer}{nodelayer}
+    \node [style=black circle] (0) at (0, 4) {20};
+    \node [style=black circle] (1) at (-5, 0) {2};
+    \node [style=black circle] (2) at (-2, 0) {4};
+    \node [style=black circle] (3) at (2, 0) {5};
+    \node [style=black circle] (4) at (5, 0) {10};
+    \node [style=black circle] (6) at (-7, 1) {1};
+    \node [style=black circle] (7) at (7, 1) {20};
+  \end{pgfonlayer}
+  \begin{pgfonlayer}{edgelayer}
+    \draw [in=0, out=-165, looseness=1.25] (0) to (1);
+    \draw [in=30, out=-150, looseness=0.75] (0) to (2);
+    \draw [in=150, out=-30, looseness=0.75] (0) to (3);
+    \draw [in=180, out=-15, looseness=1.25] (0) to (4);
+    \draw [in=0, out=180, looseness=1.25] (0) to (6);
+    \draw [in=180, out=0, looseness=1.25] (0) to (7);
+  \end{pgfonlayer}
+\end{tikzpicture}

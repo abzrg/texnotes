@@ -1,0 +1,119 @@
+% Title
+\title{Dielectrophoresis}
+\author{Ali Bozorgzadeh}
+\date{\today}
+
+% Page geometry
+\usepackage[a4paper,margin=2cm]{geometry}
+
+\usepackage[english]{babel}
+
+% Math goodies
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Helpers new commands
+\newcommand{\f}{\frac}
+\newcommand{\mb}{\mathbf}
+\newcommand{\degree}{\ensuremath{^\circ\,}}
+\newcommand{\tr}[1]{\mathrm{Tr}\left({#1}\right)}
+\newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}}
+\renewcommand{\d}{\mathop{}\!\mathrm{d}} % total derivative
+\newcommand{\p}{\partial}
+
+% Figures
+\usepackage{graphicx}
+\graphicspath{{./figures}}
+
+\usepackage{tikz}
+\usepackage{tikz-cd} % commutative diagrams
+\usepackage{tikzit}
+\input{style.tikzstyles}
+
+% Caption and subfigures
+\usepackage[labelformat=simple,figurename=Fig.,labelfont=bf,textfont=it]{caption}
+\usepackage{subcaption}
+
+% Inkscape graphics to latex
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+% Plots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+
+% Hyper link
+\usepackage[hidelinks]{hyperref}
+% Command to show url links as blue
+\newcommand\link[2]{\href{#1}{\color{blue}#2}}
+
+
+% Font
+\usepackage{textcomp}
+% \usepackage[bitstream-charter]{mathdesign}
+\usepackage[T1]{fontenc}
+
+\usepackage{xcolor}
+\definecolor{exampleLightOlive}{HTML}{CCCC99}
+\definecolor{exampleDarkOlive}{HTML}{666633}
+\definecolor{solutionLightYellow}{HTML}{FFFFCC}
+\definecolor{solutionDarkYellow}{HTML}{CC9900}
+
+% Max footnote size
+% https://tex.stackexchange.com/a/665239/220469
+\dimen\footins=1cm
+
+
+% Example and solution
+\usepackage{mdframed} % For custom framed environments
+\mdfsetup{skipabove=0pt,skipbelow=0pt}
+
+\newenvironment{ex}[1][]{% Example
+  \begin{mdframed}[%
+    linecolor=exampleDarkOlive, % Border color
+    linewidth=2pt, % Border width
+    leftline=true, % Enable left line
+    rightline=false, % Disable right line
+    topline=false, % Disable top line
+    bottomline=false, % Disable bottom line
+    backgroundcolor=exampleLightOlive, % Background color
+    innerleftmargin=10pt, % Inner left margin
+    innerrightmargin=10pt, % Inner right margin
+    innertopmargin=10pt, % Inner top margin
+    innerbottommargin=10pt, % Inner bottom margin
+    nobreak=true, % Avoid page breaks within the box
+    #1
+  ]%
+  \textbf{Example.} \ignorespaces
+}{%
+  \end{mdframed}
+}
+
+\newenvironment{sol}[1][]{% Solution
+  \begin{mdframed}[%
+    linecolor=solutionDarkYellow, % Border color
+    linewidth=2pt, % Border width
+    leftline=true, % Enable left line
+    rightline=false, % Disable right line
+    topline=false, % Disable top line
+    bottomline=false, % Disable bottom line
+    backgroundcolor=solutionLightYellow, % Background color
+    innerleftmargin=10pt, % Inner left margin
+    innerrightmargin=10pt, % Inner right margin
+    innertopmargin=10pt, % Inner top margin
+    innerbottommargin=10pt, % Inner bottom margin
+    nobreak=true, % Avoid page breaks within the box
+    #1
+  ]%
+  \textbf{Solution.} \ignorespaces
+}{%
+  \end{mdframed}
+}

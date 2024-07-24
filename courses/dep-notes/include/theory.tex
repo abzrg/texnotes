@@ -1,0 +1,89 @@
+\chapter{Theory}
+
+
+
+
+\section{Circuit}
+
+
+\subsection{Voltage}
+
+\begin{figure}[h]
+  \centering
+  \incfig{voltage-wave}
+  % A caption that doesn't appear under the figure
+  % \captionlistentry*[figure]{Natural Numbers}
+  \label{fig:sinusoidal-ac-voltage}
+  \caption[Sinusoidal AC Voltage]{Sinusoidal AC Voltage.}
+\end{figure}
+
+\[
+  \boxed{ V(t) = V_p \sin{(\omega t)}; \quad  \omega = \nf{2\pi}{T}}
+\]
+
+\begin{itemize}
+  \item \(t\): time (s)
+  \item \(\omega\): angular velocity (radians/cycles per seconds)
+  \item T: period (s)
+  \item \(V_p \equiv V_{peak} \equiv V_{m} \equiv V_{max}\)
+  \item \(V_{pp} \equiv V_{peak-to-peak} = 2 V_p\)
+  \item \(V_{rms} \equiv V_{eff}\)
+    \begin{itemize}
+      \item rms: root mean squared
+      \item eff: effective
+    \end{itemize}
+
+    \begin{align*}
+      V_{rams} &= \sqrt{ \f{1}{T} \int_0^T{ V(t)^2 \d t } } \\
+              &= \sqrt{ \f{1}{T} \int_0^T{ {V_p}^2 \sin^2{\left(\f{2\pi}{T}t\right)} \d t } } \\
+              &= \sqrt{ \f{{V_p}^2}{T} \int_0^T{\f{1}{2} \left( 1 - \cos{\left(2 \f{2\pi}{T} t\right)} \right) \d t} } \\
+              &= \sqrt{ \f{{V_p}^2}{2T} \left[ t \bigr\vert_{0}^T - \f{T}{4\pi} \sin{ \left( \f{4\pi}{T} t \right) } \Big\rvert_0^T \right] } \\
+              &= \sqrt{ \f{{V_p}^2}{2T}
+                \left[
+                        T - 0
+                        - \f{T}{4\pi} \left( \cancel{\sin{\left(\f{4\pi}{T}T\right)}} - \cancel{\sin{\left(\f{4\pi}{T}0\right)}} \right)
+                \right]
+              } \\
+              &= \sqrt{ \f{{V_p}^2}{2\cancel{T}} \cancel{T} } \\
+              &\boxed{= \f{1}{\sqrt{2}} V_p = \f{1}{2\sqrt{2}} V_{pp}} \\
+              &\boxed{\approx 0.707 V_p = 0.3536 V_{pp}}
+    \end{align*}
+
+  \item \(V_{avg} \equiv  V_{av} \equiv V_{average}\)
+
+    To calculate the average we only consider the half of the period (\nf{T}{2})
+
+    \begin{align*}
+      V_{avg} &= \f{1}{\nf{T}{2}} \int_0^{\nf{T}{2}}{V(t)} \d t\\
+              &= \f{2}{T} \int_0^{\nf{T}{2}}{V_p \sin{\left(\f{2\pi}{T} t\right)}} \d t \\
+              &= \f{\cancel{2}V_p}{\bcancel{T}} \left.\left[-\f{\bcancel{T}}{\cancel{2}\pi}\cos{\left(\f{2\pi}{T} t\right)}\right]\right\vert_0^{\nf{T}{2}} \\
+              &= \f{V_p}{\pi} \left[\cos{\left(\f{2\pi}{T} \nf{T}{2}\right)} - \cos{\left(\f{2\pi}{T} 0\right)}\right] \\
+              &= -\f{V_p}{\pi} \left[-1 - 1\right] \\
+              &= \f{2V_p}{\pi} \\
+    \end{align*}
+
+
+\end{itemize}
+
+
+
+\section{Lagrangian Particle Tracking (LPT)}
+
+Since it is computationally expensive to track a large number of particles, it is preferred to track a \emph{parcel} instead. A parcel is essentially a computational particle i.e., it contains a number of \emph{real} particles. Instead of tracking real particles, parcels are tracked. The assumption is that a parcel behaves the same was as a particle i.e., it has the same properties as that of a single particle. A collection of parcels is called a spray and a cloud is a collection of Lagrangian particles.[ref: Discrete multiphase modeling of electrostatic sprays]
+
+
+The motion of particles inside a fluid can be modeled in two ways, using \emph{Eulerian-Eulerian} modeling or using Lagrangian Particle Tracking. For example movement of droplets (fluid particles) in the flow of a fluid (air). Dispersed two phase flows can either be:
+\begin{enumerate}
+  \item Dense (or dispersed?) - The spacing between particles is short and the particle transport is mainly due to collisions. Eulerian-Eulerian modeling is suitable when there is a large particle concentra- tion where two-way coupling between the discrete and continuous phase and particle-particle collisions are significant and need to be taken into account.
+
+  \item Dilute - The spacing between the particles is large. Here the fluid
+    dynamic forces are the main responsible for the transport of particles. For
+    this case, the Eulerian-Lagrangian approach is employed in which the
+    continuum equations are solved for the continuous phase whereas Newton's
+    equations of motion are solved for each particle or a group of particles,
+    hence the name Lagrangian Particle Tracking. In this problem, the volume
+    fraction of the droplets is low enough ($< 10^{-3}$) to use the LPT approach [2],
+    [3].
+\end{enumerate}
+
+

@@ -1,0 +1,41 @@
+\begin{tikzpicture}[scale=0.8]
+  \begin{pgfonlayer}{nodelayer}
+    \node [style=black circle] (0) at (0, 4) {240};
+    \node [style=none] (1) at (-6, 2.25) {};
+    \node [style=none] (2) at (6, 2.25) {};
+    \node [style=black circle] (3) at (-6, 1.25) {1};
+    \node [style=black circle] (4) at (6, 1.25) {240};
+    \node [style=black circle] (5) at (-5.5, 0.25) {2};
+    \node [style=black circle] (6) at (5.5, 0.25) {120};
+    \node [style=black circle] (7) at (-5, -0.75) {3};
+    \node [style=black circle] (8) at (5, -0.75) {80};
+    \node [style=black circle] (9) at (-4.5, -1.75) {4};
+    \node [style=black circle] (10) at (4.5, -1.75) {60};
+    \node [style=black circle] (11) at (-3.5, -3.75) {6};
+    \node [style=black circle] (12) at (3.5, -3.75) {40};
+    \node [style=black circle] (13) at (-4, -2.75) {5};
+    \node [style=black circle] (14) at (4, -2.75) {48};
+    \node [style=black circle] (15) at (-3, -4.75) {8};
+    \node [style=black circle] (16) at (3, -4.75) {30};
+    \node [style=black circle] (17) at (-2.5, -5.75) {10};
+    \node [style=black circle] (18) at (2.5, -5.75) {24};
+    \node [style=black circle] (19) at (-2, -6.75) {12};
+    \node [style=black circle] (20) at (2, -6.75) {20};
+    \node [style=black circle] (21) at (-1.5, -7.75) {15};
+    \node [style=black circle] (22) at (1.5, -7.75) {16};
+    \node [style=none] (23) at (0, 1.25) {$\times$};
+    \node [style=none] (24) at (0, 0.25) {$\times$};
+    \node [style=none] (25) at (0, -0.75) {$\times$};
+    \node [style=none] (26) at (0, -1.75) {$\times$};
+    \node [style=none] (27) at (0, -2.75) {$\times$};
+    \node [style=none] (28) at (0, -3.75) {$\times$};
+    \node [style=none] (29) at (0, -4.75) {$\times$};
+    \node [style=none] (30) at (0, -5.75) {$\times$};
+    \node [style=none] (31) at (0, -6.75) {$\times$};
+    \node [style=none] (32) at (0, -7.75) {$\times$};
+  \end{pgfonlayer}
+  \begin{pgfonlayer}{edgelayer}
+    \draw [in=90, out=-90, looseness=0.75] (0) to (1.center);
+    \draw [in=90, out=-90, looseness=0.75] (0) to (2.center);
+  \end{pgfonlayer}
+\end{tikzpicture}

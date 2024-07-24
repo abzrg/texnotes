@@ -1,0 +1,40 @@
+\chapter{Lagrangian}
+
+\section{\emph{Lagrangian} and \emph{Eulerian}}
+
+\begin{itemize}
+  \item \B{Lagrangian} specification of the flow field In classical field theory, the Lagrangian specification of the field is a way of looking at fluid motion where the observer follows an individual fluid parcel as it moves through space and time~\cite{Xu_2016,Batchelor_2000}.
+  \item \B{Eulerian} specification of the flow field The Eulerian specification of the flow field is a way of looking at fluid motion that focuses on specific locations in the space through which the fluid flows as time passes~\cite{Xu_2016}.
+\end{itemize}
+
+
+\section{OpenFOAM Lagrangian Library}
+
+
+
+Three concept:
+\begin{itemize}
+  \item \B{Cloud} is a collection of parcels with different physical properties.
+  \item \B{Parcel} is a collection of particles with the same physical properties.
+  \item \B{Particle} is responsible for tracking position in the mesh.
+\end{itemize}
+Actual physics in the parcel~\cite{Zaripov_2018}. Relevant files are located at:
+\T{\$FOAM\_SRC\slash lagrangian\slash intermediate\slash parcels\slash Templates\slash KinematicParcel\slash}
+
+% \begin{lstlisting}[language=C++]
+% \end{lstlisting}
+
+In all the LPT~\footnote{\B{L}agrangian \B{P}article \B{T}racking} libraries of OpenFOAM, the
+dispersed phase are described by two major structure: \emph{Cloud} and \emph{Parcel}. Cloud is a
+list of parcels plus some general properties for every parcel (note the Cloud here is not relevant
+to the template class \texttt{Cloud}~\cite{Chen_2013}.
+
+In the simplest case, \texttt{solidParticleCloud} is a list of \T{solidParticle}. Another
+example being \texttt{KinematicCloud} with \texttt{KinematicParcel}.~\cite{Chen_2013}
+
+Two additional structure worth notice: \T{particle} and \T{Cloud}. They're both defined in the
+\T{lagrangian\slash basic} library and being applied in all the LPT libraries. \T{Particle} is a class
+that contains position (and it's tracked in any library); \T{Cloud} is a list of
+\T{parcel}.~\cite{Chen_2013}
+
+

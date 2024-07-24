@@ -1,0 +1,11 @@
+\begin{tikzpicture}[scale=0.3]
+  \begin{pgfonlayer}{nodelayer}
+    \node [style=black circle] (0) at (0, 4) {5};
+    \node [style=black circle] (1) at (-5, 0) {1};
+    \node [style=black circle] (4) at (5, 0) {5};
+  \end{pgfonlayer}
+  \begin{pgfonlayer}{edgelayer}
+    \draw [in=0, out=-180, looseness=0.75] (0) to (1);
+    \draw [in=180, out=0, looseness=0.75] (0) to (4);
+  \end{pgfonlayer}
+\end{tikzpicture}
