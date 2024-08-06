@@ -1,10 +1,11 @@
 \usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{xcolor}
 
 %- Font
 \usepackage[utf8]{inputenc}
-% \usepackage{palatino}
+% \usepackage{mathpazo}
 % \usepackage{mathptmx}
-\usepackage[T1]{fontenc}
+% \usepackage[T1]{fontenc}
 
 
 
@@ -20,37 +21,103 @@
 
 
 %- Hyperref
-\usepackage[hidelinks]{hyperref}
+
+\definecolor{myCiteColor}{RGB}{68, 118, 102}
+\usepackage[colorlinks=true,citecolor=myCiteColor]{hyperref}
 \pdfstringdefDisableCommands{\def\varepsilon{\textepsilon}}
 \usepackage{bookmark}% faster updated bookmarks
 
 
 
+%- Table
+\usepackage{booktabs}
+
+
+
 %- tikz
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,shapes,fadings,chains}
+\usetikzlibrary{arrows.meta,shapes,fadings,chains,calc}
 \tikzset{%
     base/.style={rectangle, minimum width=3.5cm, minimum height=0.8cm,fill=gray!10},
 }
+% For use to mark a point for example in an equation
+\newcommand{\tikzmark}[1]{\tikz[baseline,remember picture] \coordinate (#1) {};}
+
+
 
 
 %- Math stuff
 \usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{resizegather}  % Automatically resize overly large equations
 \usepackage{nicefrac}
 
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcommand{\degree}{\ensuremath{^\circ\,}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\f}{\frac}
 \newcommand{\nf}{\nicefrac}
-\newcommand{\mb}{\mathbf}
-\newcommand{\degree}{\ensuremath{^\circ\,}}
 \newcommand{\tr}[1]{\mathrm{Tr}\left({#1}\right)}
-\newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}}
 \renewcommand{\d}{\mathop{}\!\mathrm{d}} % total derivative
+\newcommand{\deltaop}{\mathop{}\!\delta} % total derivative
 \newcommand{\D}{\mathop{}\!\mathrm{D}} % total derivative
 \newcommand{\p}{\partial}
 \newcommand{\rmm}{\mathrm}
 \newcommand{\mr}{\mathrm}
+\newcommand{\ddt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\ddx}[1]{\frac{\partial #1}{\partial x}}
+\newcommand{\ddy}[1]{\frac{\partial #1}{\partial y}}
+\newcommand{\ddz}[1]{\frac{\partial #1}{\partial z}}
+\newcommand{\ddtt}[1]{\frac{\partial^2 #1}{\partial t^2}}
+\newcommand{\ddxx}[1]{\frac{\partial^2 #1}{\partial x^2}}
+\newcommand{\ddxy}[1]{\frac{\partial^2 #1}{\partial x \partial y}}
+\newcommand{\ddxz}[1]{\frac{\partial^2 #1}{\partial x \partial z}}
+\newcommand{\ddyx}[1]{\frac{\partial^2 #1}{\partial y \partial x}}
+\newcommand{\ddyy}[1]{\frac{\partial^2 #1}{\partial y2}}
+\newcommand{\ddyz}[1]{\frac{\partial^2 #1}{\partial y \partial z}}
+\newcommand{\ddzx}[1]{\frac{\partial^2 #1}{\partial z \partial x}}
+\newcommand{\ddzy}[1]{\frac{\partial^2 #1}{\partial z \partial y}}
+\newcommand{\ddzz}[1]{\frac{\partial^2 #1}{\partial z^2}}
+%
+\newcommand{\ddtout}[1]{\frac{\partial }{\partial t}{#1}}
+\newcommand{\ddxout}[1]{\frac{\partial }{\partial x}{#1}}
+\newcommand{\ddyout}[1]{\frac{\partial }{\partial y}{#1}}
+\newcommand{\ddzout}[1]{\frac{\partial }{\partial z}{#1}}
+\newcommand{\ddttout}[1]{\frac{\partial^2 }{\partial t^2}{#1}}
+\newcommand{\ddxxout}[1]{\frac{\partial^2 }{\partial x^2}{#1}}
+\newcommand{\ddxyout}[1]{\frac{\partial^2 }{\partial x \partial y}{#1}}
+\newcommand{\ddxzout}[1]{\frac{\partial^2 }{\partial x \partial z}{#1}}
+\newcommand{\ddyxout}[1]{\frac{\partial^2 }{\partial y \partial x}{#1}}
+\newcommand{\ddyyout}[1]{\frac{\partial^2 }{\partial y2}{#1}}
+\newcommand{\ddyzout}[1]{\frac{\partial^2 }{\partial y \partial z}{#1}}
+\newcommand{\ddzxout}[1]{\frac{\partial^2 }{\partial z \partial x}{#1}}
+\newcommand{\ddzyout}[1]{\frac{\partial^2 }{\partial z \partial y}{#1}}
+\newcommand{\ddzzout}[1]{\frac{\partial^2 }{\partial z^2}{#1}}
+%
+% Total derivative
+\newcommand{\DDt}[1]{\frac{\partial #1}{\p t} + u\frac{\p #1}{\p x} + v\frac{\p #1}{\p y} + w\frac{\p #1}{\p z}}
+% Total derivative vector notation
+\newcommand{\DDtv}[1]{\frac{\partial #1}{\p t} + \left( \U \cdot \grad \right) #1}
+% Total derivative itself
+\newcommand{\DDT}[1]{\frac{\D #1}{\D t}}
 
-\newcommand{\U}{\textbf{U}}
+% Gradient
+\newcommand{\grad}{\mathop{}\!\nabla} % total derivative
+% % Gradient in case subscript/superscript is needed
+% \NewDocumentCommand{\grad}{e{_^}}{%
+%   \mathop{}\!% \mathop for good spacing before \nabla
+%   \nabla
+%   \IfValueT{#1}{_{\!#1}}% tuck in the subscript
+%   \IfValueT{#2}{^{#2}}% possible superscript
+% }
+
+\newcommand{\mb}{\mathbf} % bold symbols in math
+\newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}} % bold for Greek symbols
+\usepackage{bm} % in case we want to have bold symbols (vectors) in italic
+% \bm{\alpha} \bm{u}
+
+\newcommand{\U}{\mathbf{U}}
 
 \newcommand{\eqnref}[1]{Eq.~\ref{#1}}
 
@@ -83,11 +150,30 @@
 \newcommand\Q{\ensuremath{\mathbb{Q}}}
 \newcommand\C{\ensuremath{\mathbb{C}}}
 
+% Circle around a math term
+% \mathcircled{math}
+\makeatletter
+\newcommand\mathcircled[1]{%
+  \mathpalette\@mathcircled{#1}%
+}
+\newcommand\@mathcircled[2]{%
+  \tikz[baseline=(math.base)] \node[draw,circle,inner sep=1pt] (math) {$\m@th#1#2$};%
+}
+\makeatother
+
+% Theorems
+\newtheorem*{remark}{Remark}
+
+
+
 
 
 
 %- clever reference (must be after hyperref and amsmath)
 \usepackage{cleveref}
+\Crefname{equation}{Eq.}{Eqs.}
+\Crefname{figure}{Fig.}{Figs.}
+% \Crefname{tabular}{Tab.}{Tabs.}
 
 
 
@@ -95,11 +181,17 @@
 %- Figures
 \usepackage{graphicx}
 \graphicspath{{./figures}}
+\usepackage[%
 % reduce the empty space above the caption
 % https://tex.stackexchange.com/a/45996/220469
 %\setlength{\abovecaptionskip}{-3pt plus 0pt minus 0pt}
 % or
-\usepackage[skip=2pt]{caption}
+%
+skip=2pt,%
+% also make the caption label bold
+labelfont=bf]{caption}
+
+\usepackage{adjustbox}
 
 % Figure support for Inkscape
 \usepackage{import}
@@ -111,6 +203,15 @@
     \import{./figures/}{#1.pdf_tex}
 }
 
+
+
+
+%- Deal with the annoying overfull hbox non-sense
+\tolerance=1000
+\hbadness=10000
+\emergencystretch=\maxdimen
+\hyphenpenalty=1000
+\hfuzz=0.1pt
 
 
 
@@ -180,7 +281,6 @@
 % https://tex.stackexchange.com/a/326380/220469
 % Definition of \boxed in amsmath.sty:
 % \newcommand{\boxed}[1]{\fbox{\m@th$\displaystyle#1$}}
-\usepackage{xcolor}
 \definecolor{LightBlue}{HTML}{e6feff}
 %stroke-fill-hl
 \newcommand{\sfhl}{\fcolorbox{LightBlue}{LightBlue}}
@@ -225,6 +325,13 @@
 
 
 
-%- There's a chpater-0 and for that we need to start numbering equations from chapter 0
+%- There's a chpater-0 and for that we need to start numbering equations/figures from chapter 0
 % https://tex.stackexchange.com/a/167032/220469
 \renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+
+
+
+
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}

@@ -1,140 +1,469 @@
 \setcounter{chapter}{-1}
 \chapter{Review: Differential Form of the Fluid Equation}
+\pagenumbering{arabic}
 
-\section{Continuity Equation}
+\section{Conservation of Mass}
 
 For a \emph{system} (identifiable group of matter in space):
 %
 \begin{equation}
-  \f{\D}{\D t}{M_{sys}} = 0
-  \label{eq:mass-conversation}
+	\f{\D}{\D t}{M_{sys}} = 0,
+	\label{eq:mass-conversation}
 \end{equation}
 %
 \emph{Reynolds Transport Theorem} allows us to write the mass conversation for a \emph{control volume}:
 \begin{equation}
-  \underbrace{\vphantom{\f{\p}{\rho}} \f{\p}{\p t} \int_{CV}{\rho \d V} }_{\substack{\text{rate of change of mass} \\ \text{in the C.V.}}}
-  +
-\underbrace{\vphantom{\f{\p}{\rho}}\int_{CS}{\rho \mb{U} \cdot \mb{n} \d A}}_{\substack{\text{Net rate of flow of mass} \\ \text{across C.S.}}}
-  = 0
-  \label{eq:reynolds-transport-theorem}
+  \underbrace{\vphantom{\f{\p}{\rho}} \f{\p}{\p t} \int_{CV}{\rho \d V} }_{\mathclap{\substack{\text{Rate of change of} \\ \text{mass in the C.V.}}}}
+	+
+  \underbrace{\vphantom{\f{\p}{\rho}}\int_{CS}{\rho \mb{U} \cdot \mb{n} \d A}}_{\mathclap{\substack{\text{Net rate of flow of} \\ \text{mass across C.S.}}}}
+	= 0,
+	\label{eq:reynolds-transport-theorem}
 \end{equation}
 %
 where \(\rho\) is the density of the fluid, \(\d V\) is the infinitesimal control volume, \(\mb{U}\) is the velocity of the fluid, and \(\mb{n}\) outward unit normal vector, which is normal to the infinitesimal differential surface element \(\d A\).
 
-To write \cref{eq:reynolds-transport-theorem} in differential form, we first consider a small fluid element of volume \(\delta V = \delta x \delta y \delta z\). We can say that \(\rho\) is uniform within a small fluid element assuming that the fluid element is small enough. Therefore, the LHS of the \cref{eq:reynolds-transport-theorem} will be
+To write \cref{eq:reynolds-transport-theorem} in differential form, we first consider a small fluid element of volume \(\deltaop V = \deltaop x \deltaop y \deltaop z\). We can say that \(\rho\) is uniform within a small fluid element assuming that the fluid element is small enough. Therefore, the second  term of the \cref{eq:reynolds-transport-theorem} will be
 %
 \begin{equation}
-  \f{\p}{\p t} \int_{CV}{\rho \d V}
-  = \f{\p}{\p t} \int_{CV}{\d V}
-  = \left(\f{\p\rho}{\p t}\right) \left(\delta x \delta y \delta z\right)
+	\f{\p}{\p t} \int_{CV}{\rho \d V}
+	= \f{\p}{\p t} \int_{CV}{\d V}
+	= \left(\f{\p\rho}{\p t}\right) \left(\deltaop x \deltaop y \deltaop z\right).
 \end{equation}
 %
-For the RHS of \cref{eq:reynolds-transport-theorem}, we consider the mass flux in the x-direction through faces of a cubic fluid element
+For the first term of \cref{eq:reynolds-transport-theorem}, we consider the mass flux in the x-direction through faces of a cubic fluid element (\cref{fig:infinitesimal-element-mass-flow-rate})
 %
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.95\textwidth]{differnetial-fluid-element-x}
-  \end{center}
-  \caption{Mass flow rate x-direction for a infinitesimal control volume.}\label{fig:fluid-element-mass-flow-rate-x-direction}
+\begin{figure}[ht]
+	\begin{center}
+		\incfig{infinitesimal-element-mass-flow-rate-font}
+	\end{center}
+	\caption{Mass flow rate for a infinitesimal control volume.}\label{fig:infinitesimal-element-mass-flow-rate}
 \end{figure}
 %
 Thus,
 %
 \begin{equation}
-  \text{net mass outflow in x-direction} = \f{\p \left(\rho u\right)}{\p x} \delta x \delta y \delta z
-  \label{eq:net-mass-outflow-x}.
+	\begin{aligned}
+		\text{net mass outflow in x-direction}
+		 & = \left(\bcancel{\rho u} + \f{\p \left(\rho u\right)}{\p x}\f{\deltaop x}{2}\right) \deltaop y \deltaop z
+		- \left(\bcancel{\rho u} - \f{\p \left(\rho u\right)}{\p x}\f{\deltaop x}{2}\right) \deltaop y \deltaop z    \\
+		 & = \f{\p \left(\rho u\right)}{\p x} \deltaop x \deltaop y \deltaop z.
+	\end{aligned}
+	\label{eq:net-mass-outflow-x}
 \end{equation}
 %
 Similarly for \(y\) and \(z\) direction we will have
 %
 \begin{equation}
-\begin{aligned}
-  \text{net mass outflow in y-direction} &= \f{\p \left(\rho v\right)}{\p y} \delta y \delta x \delta z \\
-  \text{net mass outflow in z-direction} &= \f{\p \left(\rho w\right)}{\p z} \delta z \delta x \delta y
-\end{aligned}
-  \label{eq:net-mass-outflow-y-z}.
+	\begin{aligned}
+		\text{net mass outflow in y-direction} & = \f{\p \left(\rho v\right)}{\p y} \deltaop y \deltaop x \deltaop z  \\
+		\text{net mass outflow in z-direction} & = \f{\p \left(\rho w\right)}{\p z} \deltaop z \deltaop x \deltaop y.
+	\end{aligned}
+	\label{eq:net-mass-outflow-y-z}
+\end{equation}
+%
+The net outflow is the sum of the above three terms (\cref{eq:net-mass-outflow-x,eq:net-mass-outflow-y-z}), and the following is the first term of the~\ref{eq:reynolds-transport-theorem}
+%
+\begin{equation}
+	\begin{aligned}
+		\text{net mass outflow} & = \f{\p \left(\rho u\right)}{\p x} \deltaop x \deltaop y \deltaop z
+		+ \f{\p \left(\rho v\right)}{\p y} \deltaop x \deltaop y \deltaop z
+		+ \f{\p \left(\rho w\right)}{\p z} \deltaop x \deltaop y \deltaop z                                                             \\
+		                        & = \f{\p \left(\rho u\right)}{\p x} \deltaop V
+		+ \f{\p \left(\rho v\right)}{\p y} \deltaop V
+		+ \f{\p \left(\rho w\right)}{\p z} \deltaop V                                                                               \\
+		                        & = \left(\f{\p \left(\rho u\right)}{\p x}
+		+ \f{\p \left(\rho v\right)}{\p y}
+		+ \f{\p \left(\rho w\right)}{\p z}\right) \deltaop V                                                                        \\
+		                        & = \grad \cdot \left(\rho \U\right) \deltaop V \textcolor{gray}{= \rho \grad \cdot \U \deltaop V}.
+	\end{aligned}
+	\label{eq:net-mass-outflow}
+\end{equation}
+%
+The first term is the following:
+%
+\begin{equation}
+	\begin{aligned}
+		\f{\p}{\p t} \int_{CV}{\rho \d V} = \f{\p \rho}{\p t} \int_{\text{CV}}{\d V} = \f{\p \rho}{\p t} \deltaop V.
+	\end{aligned}
+	\label{eq:reynolds-transport-theorem-2nd-term}
+\end{equation}
+%
+Thus, by combining~\cref{eq:reynolds-transport-theorem-2nd-term,eq:net-mass-outflow}, we will have the differential form of the~\cref{eq:reynolds-transport-theorem}
+%
+\begin{equation}
+	\begin{aligned}
+		\quad          & \f{\p \rho}{\p t} \bcancel{\deltaop V} +  \grad \cdot \left(\rho \U\right) \bcancel{\deltaop V} = 0 \\
+		\implies \quad & \boxed{\f{\p \rho}{\p t} +  \grad \cdot \left(\rho \U\right) = 0.}
+	\end{aligned}
+	\label{eq:continuity-equation-differential-form}
+\end{equation}
+%
+If the flow is \emph{steady}, the first temporal term, \(\nf{\p \rho}{\p t}\), will vanish and we will only have a divergence free velocity field.
+%
+\begin{equation}
+	\grad \cdot \U = 0
+	\label{eq:continuity-equation-steady-state}
 \end{equation}
 
-% % Figure token from Tobias Holzmann's book
-% \begin{figure}[!b]
-% \begin{tikzpicture}
-% % Koordinatensystem
-% \draw[->] (0,0) -- (7,0) node[right] {$x$} coordinate(x axis);
-% \draw[->] (0,0) -- (0,5) node[above] {$z$} coordinate(z axis);
-% \draw[->] (0,0) -- (1.5,1.5) node[below] {$y$} coordinate(y axis);
+
+
+\section{Conservation of Momentum}
+
+We start by the conservation of momentum for a system, and for a system we apply Newton's second law to write the conversation of momentum
 %
-% % Quader
-% \draw [fill=gray!30] (3,1) -- (5,1) -- (5,3) -- (3,3) -- (3,1) ;
+\begin{equation}
+	\mb{F} = \f{\D }{\D t} \int_{sys}{\U \d m},
+	\label{eq:conservation-of-momentum-system}
+\end{equation}
 %
-% \draw [densely dashed] (3.5,1.5) -- (5.5,1.5);
-% \draw [] (5.5,1.5) -- (5.5,3.5) -- (3.5,3.5);
-% \draw [densely dashed] (3.5,3.5) -- (3.5,1.5);
+where \(\mb{F}\) is the force being applied to the system and \(\d m\) is the mass of a differential element.
+
+For a C.V., one can use the Reynolds Transport Theorem to write the conservation of momentum in integral form
 %
-% \draw  [densely dashed] (3,1) -- (3.5,1.5);
-% \draw  [fill=gray!10] (5,1) -- (5.5,1.5) -- (5.5,3.5) -- (5,3) -- (5,1);
-% \draw  [fill=gray!10] (5,3) -- (5.5,3.5) --  (3.5,3.5) -- (3,3) -- (5,3);
+\begin{equation}
+	% \underbrace{\vphantom{\f{\p}{\rho}}\int_{CS}{\rho \mb{U} \cdot \mb{n} \d A}}_{\substack{\text{Net rate of flow of mass} \\ \text{across C.S.}}}
+	\sum{\mb{F}_{\text{C.V.}}}
+	=
+  \underbrace{\vphantom{\f{\p}{\rho}}\f{\p }{\p t} \int_{\text{C.V.}}{\mb{U} \rho \d V}}_{\mathclap{\substack{\text{Rate of change of}\\\text{momentum over} \\ \text{the whole volume}}}}
+  + \underbrace{\vphantom{\f{\p}{\rho}}\int_{\text{C.S.}}{\mb{U} \rho \mb{U} \cdot \mb{n} \d A,}}_{\mathclap{\substack{\text{Net momentum flux}\\\text{across the whole} \\ \text{volume surface}}}}
+	\label{eq:conservation-of-momentum-integral-form}
+\end{equation}
 %
-% %\draw (3,1) -- (3.5,3.5);
-% %\draw (3,3) -- (3.5,1.5);
+where \(\d V\) is a small element of control volume, \(\mb{n}\) is the unit normal to the small differential area element \(\d A\).
+
+Now we apply the system equation, \cref{eq:conservation-of-momentum-system}, to an infinitesimal fluid mass, \(\deltaop m\)
 %
-% % Pfeile
-% % rechts nach links
-% \draw [densely dotted, ->] (3,2.25) -- (3.25,2.25);
-% \draw [] (1.5,2.25) -- (3,2.25);
-% \draw [->] (5.25,2.25) -- (7.25,2.25);
+\begin{equation}
+	\begin{gathered}
+		\deltaop \mb{F} = \deltaop m\, \mb{a}, \\
+		\deltaop m = \rho \deltaop V = \rho \deltaop x \deltaop y \deltaop z, \\
+    \mb{a} = \f{\D \U}{\D t} = \f{\p \U}{\p t} + \left( \U \cdot \grad \right) \U.
+	\end{gathered}
+	\label{eq:equation-of-motion-for-dm}
+\end{equation}
+
+
 %
-% % unten nach oben
-% \draw [] (4.25,0.25) -- (4.25,1);
-% \draw [densely dotted, ->] (4.25,1) -- (4.25,1.25);
-% \draw [->] (4.25,3.25) -- (4.25,4.25);
+Types of forces applied on the \(\deltaop m\) are as follows
 %
-% % vorn nach hinten
-% \draw [densely dotted, ->] (4.5,2.5) -- (4.75,2.75);
-% \draw [->] (3.75,1.75) -- (4,2);
+\begin{itemize}
+	\item \textbf{Body forces}: weight (\(\deltaop \mb{F}_b = \deltaop m\, \mb{g}\)),
+	\item \textbf{Surface forces}: normal and tangential
+\end{itemize}
 %
-% % Punkte für Gleichungen
-% \node at (2.25,2.5) {\scriptsize $ u_x|_{_x}$};
-% \node at (6.5,2.5) {\scriptsize $ u_x|_{_{x+\Delta x}}$};
+For surface forces imagine we have a piece of area in the fluid somewhere and we consider an element of area \(\d A\) on that area.
+In that element we can consider the surface forces being applied on it (\cref{fig:surface-forces-on-fluid-surface-element}).
 %
-% %\node at (4.5,0.5) {\scriptsize $ u_y|_{_y}$};
-% %\node at (4.5,4.2) {\scriptsize $ u_y|_{_{y+\Delta y}}$};
+\begin{figure}[ht]
+	\begin{center}
+		\incfig{surface-forces-on-fluid-surface}
+	\end{center}
+	\caption{Surface forces on a fluid surface element.}\label{fig:surface-forces-on-fluid-surface-element}
+\end{figure}
 %
-% %\node at (4.5,2.75) {\scriptsize $ u_z|_{_x}$};
-% % \node at (4,1.75) {\scriptsize $ u_z|_{_{z+\Delta z}}$};
+where \(\deltaop F_n\) is the normal component of force on $\deltaop A$, and \(\deltaop F_1\) and \(\deltaop F_2\) are the tangential components of the surface force on \(\deltaop A\).
+Therefore normal and tangential stresses are:
 %
-% % Linien für dx dy dz
-% \draw [densely dashdotted] (5,1) -- (5.6,1)
-%    (5.5,1.5) -- (6.1,1.5)
-%    (5.5,3.5) -- (6.1, 3.5)
-%    (3.5,3.5) -- (3.8,3.8)
-%    (5.5,3.5) -- (5.8,3.8);
+\begin{equation}
+	\text{Normal Stress:}
+	\begin{aligned}
+		\quad \sigma_n & = \lim_{\deltaop A \to 0}{\f{\deltaop F_n}{\deltaop A}}
+	\end{aligned} \\
+	\label{eq:normal-surface-stress}
+\end{equation}
 %
-% \draw [<->,densely dashdotted] (5.3,1) -- (5.8,1.5);
-% \node at (6,1.25) {\tiny $\Delta y$};
+\begin{equation}
+	\text{Shearing Stress:}
+	\begin{aligned}
+		\quad \tau_1 & = \lim_{\deltaop A \to 0}{\f{\deltaop F_1}{\deltaop A}} \\
+		\tau_2       & = \lim_{\deltaop A \to 0}{\f{\deltaop F_2}{\deltaop A}}
+	\end{aligned}
+	\label{eq:tangential-surface-stresses}
+\end{equation}
 %
-% \draw [<->,densely dashdotted] (5.8,1.5) -- (5.8,3.5);
-% \node at (6.1,3.2) {\tiny $\Delta z$};
+Now, with reference to a coordinate system, we consider a small cubic fluid element (\cref{fig:cubic-fluid-element-stress}).
+\begin{figure}[ht]
+	\begin{center}
+		\incfig{cubic-fluid-element-stress}
+	\end{center}
+	\caption{Stress Components on a small cubic fluid element and sign convention.}\label{fig:cubic-fluid-element-stress}
+\end{figure}
 %
-% \draw [<->,densely dashdotted] (3.65,3.65) -- (5.65,3.65);
-% \node at (4.75,3.8) {\tiny $\Delta x$};
+\(\sigma_{xx}\) is the normal stress in the $x$ direction acting on a face with normal in the \(x\) direction.
+\(\tau_{xy}\) and \(\tau_{xz}\) are shear stresses in the y and z direction in the face with normal pointing in \(x\) direction.
+Therefore, the first subscript represents the direction of the normal vector (face normal, \(\mb{n}\)), and the second subscript refers to the direction of the stress vector.
+
+\textbf{Sign convention for stresses}: If the outward normal points to the positive (negative) $x$ direction then positive normal stress, \(\sigma_{xx}\) will be in the positive (negative) $x$ direction and positive shear stresses, \(\tau_{xy}\) and \(\tau_{xz}\), will be in positive (negative) $y$ and $z$ direction.
+
+Now we look at surface forces in terms of stresses.
+For that we consider a space varying stress acting on a small cube, with the same coordinate system as before (\cref{fig:cubic-fluid-element-stress-x-direction}).
 %
-% % Volumenpunkt
-% \node at (4.25,2.25) {\tiny $\bullet$};
-% \node at (4.5,2.25) {\tiny d$V$};
+\begin{figure}[ht]
+	\begin{center}
+		\incfig{cubic-fluid-element-stress-x-direction}
+	\end{center}
+	\caption{Surface forces acting on a cubic element in \(x\)-direction (all stresses show in positive direction).}\label{fig:cubic-fluid-element-stress-x-direction}
+\end{figure}
 %
+Considering~\cref{fig:cubic-fluid-element-stress-x-direction}, we can write the sum of surface forces in the \(x\)-direction
 %
-% \node at (8.5,5) [right] {\scriptsize $ \rmm{Mass~inside~x:~} (\rho u_x)|_{_x} \Delta y \Delta z $};
-% \node at (8.5,4.4) [right] {\scriptsize $ \rmm{Mass~outside~x:~} (\rho u_x)|_{_{x+\Delta x}} \Delta y \Delta z $};
+\begin{equation}
+	\begin{aligned}
+		\deltaop F_{s_x}
+		 & =
+		\left(\bcancel{\sigma_{xx}} + \f{\p \sigma_{xx}}{\p x} \f{\deltaop x}{2}\right) \deltaop y \deltaop z
+		- \left(\bcancel{\sigma_{xx}} - \f{\p \sigma_{xx}}{\p x} \f{\deltaop x}{2}\right) \deltaop y \deltaop z      \\
+		%
+		 & + \left(\bcancel{\tau_{yx}}    + \f{\p \tau_{yx}}{\p y}    \f{\deltaop y}{2}\right) \deltaop x \deltaop z
+		- \left(\bcancel{\tau_{yx}}    - \f{\p \tau_{yx}}{\p y}    \f{\deltaop y}{2}\right) \deltaop x \deltaop z    \\
+		%
+		 & + \left(\bcancel{\tau_{zx}}    + \f{\p \tau_{zx}}{\p z}    \f{\deltaop z}{2}\right) \deltaop x \deltaop y
+		- \left(\bcancel{\tau_{zx}}    - \f{\p \tau_{zx}}{\p z}    \f{\deltaop z}{2}\right) \deltaop x \deltaop y,
+	\end{aligned}
+	\label{eq:sum-of-surface-forces-x-dir}
+\end{equation}
 %
-% \node at (8.5,3.4) [right] {\scriptsize $ \rmm{Mass~inside~y:~} (\rho u_y)|_{_y} \Delta x \Delta z $};
-% \node at (8.5,2.8) [right] {\scriptsize $ \rmm{Mass~outside~y:~} (\rho u_y)|_{_{y+\Delta y}} \Delta x \Delta z $};
+\begin{equation}
+	\begin{aligned}
+		\deltaop F_{s_x}
+		 & =
+		\f{\p \sigma_{xx}}{\p x} \deltaop x \deltaop y \deltaop z
+		%
+		+ \f{\p \tau_{yx}}{\p y} \deltaop x \deltaop y \deltaop z
+		%
+		+ \f{\p \tau_{zx}}{\p z} \deltaop x \deltaop y \deltaop z \\
+		 & =
+		\left(\f{\p \sigma_{xx}}{\p x} + \f{\p \tau_{yx}}{\p y} + \f{\p \tau_{zx}}{\p z}\right) \deltaop V,
+	\end{aligned}
+	\label{eq:sum-of-surface-forces-x-dir-cancelled}
+\end{equation}
 %
-% \node at (8.5,1.8) [right] {\scriptsize $ \rmm{Mass~inside~z:~} (\rho u_z)|_{_z} \Delta x \Delta y $};
-% \node at (8.5,1.2) [right] {\scriptsize $ \rmm{Mass~outside~z:~} (\rho u_z)|_{_{z+\Delta z}} \Delta x \Delta y $};
+where \(\deltaop F_{s_x}\) is the \textbf{s}urface force in the \(x\)-direction.
+Similarly, for surface forces in the $y$ and \(z\) direction we will have
 %
-% \end{tikzpicture}
-% \caption{Mass balance in a small volume element d$V$.}
-% \label{figure::massFigure}
-% \end{figure}
+\begin{equation}
+	\begin{aligned}
+		\deltaop F_{s_y} & = \left(\f{\p \tau_{yx}}{\p x} + \f{\p \sigma_{yy}}{\p y} + \f{\p \tau_{yz}}{\p z}\right) \deltaop V \\
+		\deltaop F_{s_z} & = \left(\f{\p \tau_{zx}}{\p x} + \f{\p \tau_{zy}}{\p y} + \f{\p \sigma_{zz}}{\p z}\right) \deltaop V
+	\end{aligned}
+	\label{eq:sum-of-surface-forces-y-and-z-dir}
+\end{equation}
+%
+Note that, these surface forces are indepent of the mass (or density) of the system.
+
+Now, we can write the equation of motion, \cref{eq:equation-of-motion-for-dm} for the mass element, \(\deltaop m\), by combining body and surface forces
+%
+\begin{equation*}
+  \rho g_x + \left(\f{\p\sigma_{xx}}{\p x} + \f{\p\tau_{yx}}{\p y} + \f{\p\tau_{zx}}{\p z}\right) \deltaop V
+  = \deltaop m\, \mb{a} = \rho \deltaop V \f{\D \U}{\D t}
+\end{equation*}
+\begin{equation}
+  \boxed{
+  \begin{aligned}
+  \rho g_x + \f{\p\sigma_{xx}}{\p x} + \f{\p\tau_{yx}}{\p y} + \f{\p\tau_{zx}}{\p z}
+  &= \rho \left(\f{\p u}{\p t} + u\f{\p u}{\p x} + v\f{\p u}{\p y} + w\f{\p u}{\p z}\right),\\
+    \rho g_y + \f{\p\tau_{xy}}{\p x} + \f{\p\sigma_{yy}}{\p y} + \f{\p\tau_{zy}}{\p z}
+  &= \rho \left(\f{\p v}{\p t} + u\f{\p v}{\p x} + v\f{\p v}{\p y} + w\f{\p v}{\p z}\right),\\
+    \rho g_z + \f{\p\tau_{xz}}{\p x} + \f{\p\tau_{yz}}{\p y} + \f{\p\sigma_{zz}}{\p z}
+  &= \rho \left(\f{\p w}{\p t} + u\f{\p w}{\p x} + v\f{\p w}{\p y} + w\f{\p w}{\p z}\right).
+  \end{aligned}
+  }
+  \label{eq:caushy-equation}
+\end{equation}
+%
+\Cref{eq:caushy-equation} is known as the \textbf{Caushy momentum equation}.
+The vector from of \cref{eq:caushy-equation} is as follows
+%
+\begin{equation}
+  \boxed{
+    \rho \mb{g} + \grad \cdot \mbg{\sigma} = \rho \f{\D \U}{\D t},
+  }
+  \label{eq:caushy-equation-vector-notation}
+\end{equation}
+%
+where \(\mbg{\sigma}\) is the stress tensor
+%
+\begin{equation}
+  \mbg{\sigma} = \begin{pmatrix}
+    \sigma_{xx} & \tau_{xy}   & \tau_{xz} \\
+    \tau_{yx}   & \sigma_{yy} & \tau_{yz} \\
+    \tau_{zx}   & \tau_{zy}   & \sigma_{zz}
+  \end{pmatrix}.
+  \label{eq:stress-tensor}
+\end{equation}
+
+\Cref{eq:caushy-equation} are general equations of motion applied to all substances whether it is a fluid or solid.
+Notice that there are three equations, one for each coordinate direction, and with continuity equation we will have a total of four equations.
+However, the unknows are three components of velocity vector, \(u\), \(v\), \(w\), and all of the nine components of stress tensor.
+Therefore, we need more information!
+We need some assumption about stresses by introducing some \emph{constitutive relations/equations}.
+%
+\begin{quote}
+  \itshape ``In physics and engineering, a \textbf{constitutive equation} or \textbf{constitutive relation} is a relation between two or more physical quantities (especially kinetic quantities as related to kinematic quantities) that is specific to a material or substance or field, and approximates its response to external stimuli, usually as applied fields or forces. They are combined with other equations governing physical laws to solve physical problems; for example in fluid mechanics the flow of a fluid in a pipe, in solid state physics the response of a crystal to an electric field, or in structural analysis, the connection between applied stresses or loads to strains or deformations.''--Wikipedia
+\end{quote}
+%
+For example, with the assumption of an \textbf{inviscid flow}, i.e., no viscosity, there will be no shearing stresses.
+When there is no shearing stresses, it can be proved that normal stress will be independent of direction, and equal to the (negative) thermodynamic pressure i.e.,
+%
+\begin{equation}
+  \sigma_{xx} = \sigma_{yy} = \sigma_{zz} = -p
+  \label{eq:normal-stresses-indepent-of-direction}
+\end{equation}
+%
+The resulting equation of motion is called the \textbf{Euler equation}
+%
+\begin{equation}
+  \boxed{
+    \begin{aligned}
+      \rho g_x - \f{\p p}{\p x} &= \rho \left(\f{\p u}{\p t} + u\f{\p u}{\p x} + v\f{\p u}{\p y} + w\f{\p u}{\p z}\right), \\
+      \rho g_y - \f{\p p}{\p y} &= \rho \left(\f{\p v}{\p t} + u\f{\p v}{\p x} + v\f{\p v}{\p y} + w\f{\p v}{\p z}\right), \\
+      \rho g_z - \f{\p p}{\p z} &= \rho \left(\f{\p w}{\p t} + u\f{\p w}{\p x} + v\f{\p w}{\p y} + w\f{\p w}{\p z}\right).
+    \end{aligned}
+  }
+  \label{eq:euler-equation-system-expanded}
+\end{equation}
+%
+Also Euler equation in vector notation is the following
+%
+\begin{equation}
+  \boxed{
+    \begin{aligned}
+      \rho \mb{g} - \grad p &= \rho \left(\f{\p \U}{\p t} + \left(\U\cdot\grad\right)\U\right) \\
+                             &= \rho \f{\D \U}{\D t}
+    \end{aligned}
+  }
+  \label{eq:euler-equation-system-vector-notation}
+\end{equation}
+
+For the viscous flow we will make some assumptions about the stresses and will get to the Navier-Stokes equations.
+
+
+\section{The Navier-Stokes Equations}
+
+In order to solve the Cauchy momentum equation (\cref{eq:caushy-equation-vector-notation}), we need to somehow reduce the number of unknowns and we predominantly need to deal with the stress terms.
+To do so, we need relation between stresses and velocities, and these relations are called \emph{constitutive relations}.
+In particular we need to relate stress with derivatives of velocity (velocity gradients), and the relations are called \emph{stress deformations} relationships.
+
+For the simplicity we're going to assume fluid is \textbf{incompressible}, \(\grad \cdot \U = 0\), and that the density, \(\rho\), is constant.
+We also assume that flow is \textbf{isothermal} and thus it is independent of changes in the temperature, or there are no changes in the temperature, we can omit the energy equation.
+We also assume that viscosity of the fluid is constant.
+Finally from here on out we are going to assume that the fluid is \textbf{Newtonian}.
+In Newtonian fluids stress is linearly proportional to the rate of deformation (strain rate in terms of velocity gradients).
+For a Newtonian fluid normal stresses can be expressed as following constitutive relations
+%
+\begin{equation}
+  \begin{aligned}
+  \sigma_{xx} = -p + 2 \mu \f{\p u}{\p x}, \\
+  \sigma_{yy} = -p + 2 \mu \f{\p v}{\p y}, \\
+  \sigma_{zz} = -p + 2 \mu \f{\p w}{\p z}, \\
+  \end{aligned}
+  \label{eq:normal-stress-newtonian}
+\end{equation}
+%
+where \(p\) is the thermodynamic pressure, and \(\mu\) is the coefficient of viscosity of a Newtonian fluid.
+By summing these three normal stresses we get
+%
+\begin{equation}
+  \begin{gathered}
+  \sigma_{xx} + \sigma_{yy} + \sigma_{zz}
+  = -3p + 2 \mu \left(\f{\p u}{\p x} + \f{\p v}{\p y} + \f{\p w}{\p z}\right)
+  = -3p + 2 \mu \underbrace{\left(\bcancel{\grad \cdot \U}\right)}_{\substack{\text{incompressible} \\ \text{flow}\, =\, 0}}
+  = -3p \\
+  \implies\quad \f{1}{3} \left( \sigma_{xx} + \sigma_{yy} + \sigma_{zz} \right) = -p.
+  \end{gathered}
+  \label{eq:pressure-as-sum-of-normal-stresses}
+\end{equation}
+
+Shearing stresses can be expressed as following constitutive relations%
+\footnote{``The symmetry of the Cauchy stress tensor, \(\mbg{\sigma}\), i.e., (\(\tau_{xy} = \tau_{yx}\) etc.) is obtained from the balance of angular momentum.''--%
+\href{https://www.quora.com/Why-is-the-Cauchy-stress-tensor-symmetrical-at-equilibrium}{quora}}
+%
+\begin{equation}
+  \begin{aligned}
+    \tau_{xy} = \tau_{yx} &= \mu \left( \f{\p u}{\p y} + \f{\p v}{\p x} \right), \\
+    \tau_{xz} = \tau_{zx} &= \mu \left( \f{\p u}{\p z} + \f{\p w}{\p x} \right), \\
+    \tau_{yz} = \tau_{zy} &= \mu \left( \f{\p v}{\p z} + \f{\p w}{\p y} \right).
+  \end{aligned}
+  \label{eq:shearing-stress-newtonian}
+\end{equation}
+
+Now, we have all of the stress components as a function of velocity gradients,
+so we can substitute back~\cref{eq:pressure-as-sum-of-normal-stresses,eq:shearing-stress-newtonian} into the Caushy momentum equation (\cref{eq:caushy-equation-vector-notation}).
+Note that when we do so, we will have a first order derivative of pressure field (pressure gradient term) and second order derivatives of velocity field (assuming viscosity is constant) in the momentum equation.
+%
+
+Writing the x-component of the divergence of stress in \cref{eq:caushy-equation}
+%
+\begin{equation}
+  \begin{aligned}
+  \ddx{\sigma_{xx}} + \ddy{\tau_{yx}} + \ddz{\tau_{zx}}
+  &= - \ddx{p}
+  + \ddxout{\left( 2 \mu \f{\p u}{\p x} \right)}
+  + \ddyout{\left( \mu \left( \ddy{u} + \ddx{v} \right) \right)}
+  + \ddzout{\left( \mu \left( \ddz{u} + \ddx{w} \right) \right)} \\
+  %
+  &= - \ddx{p}
+  +  2 \mu \ddxx{u}
+  +  \mu \left( \ddyy{u} + \ddyx{v} \right)
+  +  \mu \left( \ddzz{u} + \ddzx{w} \right).
+  \end{aligned}
+  \label{eq:newtonian-caushy-stress-x}
+\end{equation}
+%
+Rewriting the~\cref{eq:newtonian-caushy-stress-x} in the following form
+\begin{equation}
+  \begin{aligned}
+  \f{\p \sigma_{1i}}{\p x_i}
+  &= -\ddx{p}
+  + \mu \left( \ddxx{u} + \ddyy{u} + \ddzz{u} \right) + \mu \left( \ddxx{u} + \ddyx{v} + \ddzx{w} \right)\\
+  &= -\ddx{p}
+  + \mu \left( \ddxx{u} + \ddyy{u} + \ddzz{u} \right) + \mu \ddxout{ \underbrace{\left(\bcancel{\ddx{u} + \ddy{v} + \ddz{w}}\right)}_{\substack{\text{incompressible} \\ \text{flow}\, =\, 0}} }
+  \end{aligned}
+  \label{eq:newtonian-caushy-stress-x-rewrite}
+\end{equation}
+
+Now we can substitute~\cref{eq:newtonian-caushy-stress-x-rewrite} back into the Caushy momentum equation to obtain the incompressible Navier-Stokes equation (note that we moved the acceleration terms to the left hand side of the momentum equation)
+%
+\begin{equation}
+    \rho \DDt{u} = \rho g_x - \ddx{p} + \mu \left( \ddxx{u} + \ddyy{u} + \ddzz{u} \right).
+  \label{eq:incompressible-navier-stokes}
+\end{equation}
+%
+Also, in vector notation we have
+\begin{equation}
+  \boxed{
+    \rho \left( \DDtv{\U} \right) = \rho \mb{g} - \grad p + \mu \left( \ddxx{\U} + \ddyy{\U} + \ddzz{\U} \right)
+  }
+  \label{eq:incompressible-navier-stokes-vector-notation}
+\end{equation}
+%
+\begin{equation}
+  \boxed{
+    \rho \DDT{\U} = \rho \mb{g} - \grad p + \mu \grad^2.
+  }
+  \label{eq:incompressible-navier-stokes-vector-notation-condensed}
+\end{equation}
+%
+\Cref{eq:incompressible-navier-stokes-vector-notation-condensed} is the final form of the Navier-Stokes equation for the incompressible fluid flow.
+Note that the following assumptions has been made
+%
+\begin{itemize}
+  \item incompressibility \(\grad \cdot \U  = 0\)
+  \item constant density and viscosity
+  \item isothermal flow
+  \item Newtonian fluid (linear dependence of stress to deformation rate (strain))
+\end{itemize}
+
+Furthermore, now we have a total of 4 equations: 3 momentum equations and 1 continuity equation.
+However we still have 5 unknowns: $u$, $v$, $w$, $p$ and $\rho$.
+We need one more equation to complete the system of equations and that is an \textbf{equation of state} relating the pressure and density.
+
+\begin{remark}[Non-linearity]
+  \Cref{eq:incompressible-navier-stokes-vector-notation-condensed} is a non-linear second order PDE (because of the quadratic term of \( \left( \textcolor{red}{\U} \cdot \grad \right) \textcolor{red}{\U} \)).
+  So it is a complex system of equation to solve and in fact there are very few known analytical solutions to this equation (based on some simplification assumptions).
+  The only general approach is computational, which is our business here at hand.
+\end{remark}
+
+
 
 % vim: et ts=2 sw=2
