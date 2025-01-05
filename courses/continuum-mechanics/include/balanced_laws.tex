@@ -1,0 +1,313 @@
+\chapter{Balanced Laws}
+
+% ---------------------------------------------------------------------------------------
+\section{Introduction}
+% ---------------------------------------------------------------------------------------
+
+Example of balanced laws:
+%
+\begin{itemize}
+  \item Mass Balance (MB)
+  \item Linear Momentum Balance (LMB)
+  \item Angular Momentum Balance (AMB)
+  \item Energy Balance (1st law of thermodynamics)
+  \item Entropy Balance (2nd law of thermodynamics)
+\end{itemize}
+
+\vspace{10pt}
+Note:
+\begin{itemize}
+  \item \textbf{``Laws''}: we assume their validity
+  \item MB + LMB + AMB \(\Rightarrow\) \(\underbrace{\vphantom{\frac{}{}}\text{Laws of motion}}_{\f{}{}\text{kinetics } \xrightleftharpoons{} \text{ kinematics}}\)
+\end{itemize}
+
+We assume a \emph{closed} system, whose bounding is the material surface
+
+\begin{figure}[H]
+  \centering
+  \incfig{BL_mass_balance}
+  \caption{Mass Balance Diagram.}
+  \label{fig:balance_laws_mass_balance}
+\end{figure}
+
+
+
+\begin{figure}[H]
+  \centering
+  \incfig{BL_free_body_diag_truss}
+  \caption{Free Body Diagram of a truss web. \(\bm{F}_1\) and \(\bm{F}_2\) are ``force boundary conditions'' applied on the truss. Note that from here on boundary conditions will be shown explicitly on reference and current configurations.}
+  \label{fig:balance_laws_free_body_diag_truss}
+\end{figure}
+
+
+% ---------------------------------------------------------------------------------------
+\section{Mass Balance}
+% ---------------------------------------------------------------------------------------
+
+\begin{equation}
+  m = \int\limits_{\mathcal{B}} \d m = \begin{dcases}
+    \int\limits_{\mathcal{R}_o} \rho_o \d V & \rho_o\,\text{: referential mass density} \\[1ex]
+    \int\limits_\mathcal{R} \rho \d v     & \rho\,\text{: spatial mass density}
+  \end{dcases}
+\end{equation}
+
+Notice \(\d v = J \d V\):
+%
+\begin{equation}
+  \int\limits_\mathcal{R} \rho \d v = \int\limits_{\mathcal{R}_o} \rho J \d V
+  \qquad \Rightarrow \qquad  \boxed{\rho_o = \rho J}
+\end{equation}
+%
+\begin{equation}
+  \text{(MB)} \qquad {\color{myred}0} = \f{\d m}{\d t}
+  = \left\{\begin{aligned}
+    &\f{\d }{\d t}\int\limits_{\mathcal{R}_o} \rho_o \d V \!\!\!\!&&= \int\limits_{\mathcal{R}_o}\dot{\rho}_o \d V \;\; &&\Rightarrow \quad \dot{\rho}_o = 0\\[1ex]
+    &\f{\d}{\d t}\int\limits_\mathcal{R} \rho \d v \!\!\!\!&&= \f{\d}{\d t} \int\limits_{\mathcal{R}_o} (\rho J) \d V \;\; &&\Rightarrow \quad \dot{\overline{\rho_o J}} = 0
+  \end{aligned}\right.
+  \label{eq:}
+\end{equation}
+
+Note that \(0\) means ``conservation of mass''. We have
+%
+\begin{equation}
+  \dot{\overline{\rho_o J}} = \dot{\rho} J + \rho \dot{J} = \dot{\rho} J + \rho J \div v = 0
+  \quad \Rightarrow \quad \boxed{\dot{\rho} + \rho \div v = 0}
+\end{equation}
+
+Note that:
+%
+\begin{equation}
+  \begin{aligned}
+    \f{\d}{\d t} \int\limits_\mathcal{R} \rho \d v
+    &\neq \int\limits_\mathcal{R} \dot\rho \d v \\
+    &= \int\limits_\mathcal{R} \dot{\overline{\rho \d v}}
+    =
+    \int\limits_\mathcal{R} \left(
+      \dot\rho \d v + \rho \dot{\overline{\d v}}
+    \right)
+  \end{aligned}
+\end{equation}
+
+\subsection{Open vs. Closed System}
+
+
+
+\[
+  x
+    \begin{tikzpicture}%[
+% node distance = 0pt,
+%   start chain = A going right,
+%     inner sep = 0pt,
+%     outer sep = 0pt,
+% every node/.style = {on chain=A}
+%                         ]
+% % equation
+% \node{$\lambda_1$}; % A-1
+% \node{$($};         % A-2
+% \node{$2,1$};       % A-3
+% \node{$,-1) + $};
+% \node{$\lambda_2$}; % A-5
+% \node{$($};         % A-6
+% \node{$1,1$};       % A-7
+% \node{$,1)=$(};
+% \node{$4$};        % A-9
+% \node{$,1,-5)$};
+% lines
+%     \begin{scope}[
+%         every path/.append style = {->, draw=gray, very thick},
+%                   ]
+% % arrows are arranged from bottom (left to right) to top (right to left)
+% \draw (A-1.north) to [out=75,in=120] (A-3.north);% 1, bottom
+% \draw (A-5.north) to [out=75,in=105] (A-7.north);% 2, bottom
+% \draw (A-5.north) to [out=60,in=120] coordinate[pos=0.3] (b) % <-- coordinate for join point
+%       (A-9.north);% 2, bottom
+% \draw (A-1.north) to [out=60,in=120] (b);% 1, top
+%     \end{scope}
+      \draw[->] (0, 0) -- (1, 0);
+    \end{tikzpicture}
+\]
+
+
+% ---------------------------------------------------------------------------------------
+\section{Momentum Balance}
+% ---------------------------------------------------------------------------------------
+
+% --------------------------------------------- %
+% lecture 12
+% --------------------------------------------- %
+
+
+\begin{definition}
+  \textbf{Linear} (translational) momentum of the material/object/body \(\mathcal{B}\) in \(\mathcal{R}\):
+%
+\begin{equation}
+  \LMom = \int\limits_\mathcal{B} \d \LMom = \int\limits_\mathcal{R} \mb{p} \d v = \int\limits_\mathcal{R} \rho \mb{v} \d v,
+\end{equation}
+%
+\end{definition}
+\noindent where \(\LMom\) is the total momentum (vector) of the object/body \(\mathcal{B}\), \(\d \LMom\) is small incremental momentum of particles of the body, and \(\mb{p}\) is the density of linear momentum in \(\mathcal{R}\).
+
+\begin{definition}
+  \textbf{Angular} (rotational/moment) of the material in \(\mathcal{R}\) w.r.t a (arbitrary and stationary) \(\mb{x}_o\) (not necessarily the origin):
+\begin{equation}
+  \AMom^o = \int\limits_\mathcal{B} \mb{r}_o \crossprod \d \LMom = \int\limits_\mathcal{R} \mb{r}_o \crossprod \rho \mb{v} \d v
+\end{equation}
+\end{definition}
+where \(\AMom\) is the total angular momentum of the body \(\mathcal{B}\). Note that the integrand term in the middle integral is the moment of the incremental momentum of a particle w.r.t. \(\mb{x}_o\). Also, note that \(\mb{r}_o\) is not a constant vector and changes with time as the body moves.
+
+\begin{figure}[H]
+  \centering
+  \incfig{BL_angular_momentum}
+  \caption{Angular momentum expressed as moment of Linear momentum about a (arbitrary but fixed) point \(\mb{x}_o\) in space.}
+  \label{fig:}
+\end{figure}
+
+Laws of Motion (originally in \(\mathcal{R}\)):\footnote{
+  The conceptual leap from Euler balance laws to Cauchy balance laws is nothing but \emph{stress}.
+}
+%
+\begin{itemize}
+  \item Global (Integral) $\rightarrow$ Euler
+  \item Local (Differential) $\rightarrow$ Cauchy
+\end{itemize}
+
+% --------------------------------------------- %
+
+\subsection{Euler's laws of motions}
+
+There exists an (intertial/Newtonian) frame of reference (or simply an observer) such that
+%
+\begin{equation}
+  \text{\color{myred}(LMB)} \qquad \boxed{\dot{\LMom} = \mb{F}}
+  \qquad \text{and} \qquad
+  \boxed{\dot{\AMom}^o = \mb{M}^o} \qquad \text{\color{myred}(AMB)},
+\end{equation}
+%
+where \(\mb{F}\) is net (resultant) force vector, and \(\mb{M}^o\) is the net moment vector (of linear momentum) about \(\mb{x}_o\), on the body. These two can be decomposed into a ``body'' and ``surface'' components:
+%
+\begin{equation}
+  \begin{aligned}
+    \mb{F} &= \mb{F}_{B} + \mb{F}_S \\
+    \mb{M}^o &= \mb{M}^o_{B} + \mb{F}^o_S.
+  \end{aligned}
+\end{equation}
+%
+We first analyze the force.
+\begin{equation}
+  \begin{aligned}
+    \int\limits_{\mathcal{B}} \d \mb{F}_{B} &= \int\limits_\mathcal{R} \mb{f}_{B} \d v, \qquad \text{ where } \mb{f}_{B} = \rho \mb{b} \\
+                       &= \int\limits_\mathcal{R} \rho \mb{b} \d v,
+  \end{aligned}
+\end{equation}
+%
+where \(\mb{b}\) is the body force vector (per unit mass), e.g., gravity electromagnetic force etc.
+%
+\begin{equation}
+  \mb{F}_S = \int\limits_\mathcal{B} \d \mb{F}_S = \int\limits_{\p \mathcal{R}} \mb{t} \d a,
+\end{equation}
+%
+where \(\mb{t}\) is the traction vector (force per unit area), e.g. due to contact with a surface.
+Note that \(\p \mathcal{R}\) is only the outer surface of body and not its internal surface.
+%
+\begin{figure}[H]
+  \centering
+  \incfig{BL_traction}
+  \caption{Traction forces $\mb{t}_1$ and $\mb{t}_2$ on outer and inner surfaces, respectively.}
+  \label{fig:}
+\end{figure}
+
+Next we analyze \(\mb{M}^o\) in detail:
+%
+\begin{equation}
+  \begin{aligned}
+    \mb{M}^o_B &= \int\limits_{\mathcal{B}} \mb{r}_o \crossprod \d \mb{F}_{B} = \int\limits_\mathcal{R} \mb{r}_o \crossprod \rho \mb{b} \d v \\
+                   &= {\color{myblue}\int\limits_{\mathcal{B}} \d \mb{M}^o_{B} = \int\limits_\mathcal{R} {\color{myred}\mb{m}^o_{B}} \d v}.
+  \end{aligned}
+  \label{eq:BL_moment_body}
+\end{equation}
+Note that although \(\mb{M}^o_{B}\) could be expressed in terms of blue integrals in RHS of~\cref{eq:BL_moment_body} it is less convenience for us to work with that since it introduces a \emph{new} quantity \({\color{myred}\mb{m}^o_{B}}\).\footnote{
+  In general \(\mb{m}^o_{B}\) is not necessarily \(\mb{r}_o \crossprod \rho \mb{b}\), however, \(\mb{r}_o\crossprod \rho \mb{b}\) leads to a \emph{symmetric} stress tensor.
+}
+Next, the moment applied to all particles on the body surface, \(\mb{M}^o_{S}\):
+%
+\begin{equation}
+  \mb{M}^o_{S} = \int\limits_{\mathcal{B}} \mb{r}_o \crossprod \d \mb{F}_S = \int\limits_{\p \mathcal{R}} \mb{r}_o \crossprod \mb{t} \d a
+\end{equation}
+%
+Restated, \emph{integral/spatial} forms of Euler's laws are:
+%
+\begin{alignat}{3}
+  \text{(LMB)} \qquad &\ddt{} \int\limits_\mathcal{R} \rho \mb{v} \d v                     &&= \int\limits_\mathcal{R} \rho \mb{b} \d                     v &&+ \int\limits_{\p \mathcal{R}} \mb{t} \d a \\
+  \text{(AMB)} \qquad &\ddt{} \int\limits_\mathcal{R} \mb{r}_o \crossprod \rho \mb{v} \d v &&= \int\limits_\mathcal{R} \mb{r}_o \crossprod \rho \mb{b} \d v &&+ \int\limits_{\p \mathcal{R}} \mb{r}_o \crossprod \mb{t} \d a
+    \label{eq:}
+  \end{alignat}
+%
+If \(\mb{F}\) or \(\mb{M}^o = 0\) then \(\dot{\LMom}\) or \(\AMom^o = 0 \rightarrow\) conservation law.
+Return to LMB:
+%
+\begin{equation}
+  \ddt{} \int\limits_\mathcal{R} \rho \mb{v} \d v = \int\limits_\mathcal{R} \rho \mb{b} \d v + \int\limits_{\p \mathcal{R}} \mb{t} \d a
+  \label{eq:BL_Euler_LMB}
+\end{equation}
+%
+and we will prove:
+\begin{equation}
+  \mb{t} =
+  \underbrace{\tilde{\mb{t}}(\mb{x}, t, \mb{n})}_{\substack{\text{vectorial}\\\text{function}}} =
+  \underbrace{{\color{myred}\mb{T}(\mb{x}, t)}}_{\text{Tensor}} {\color{myred}\mb{n}} \qquad \text{(linear relation)}
+  \label{eq:BL_traction_vs_stress_linear}
+\end{equation}
+%
+where \(\tilde{\mb{t}}(\mb{x}, t, \mb{n})\) is the Eulerian representation of the traction vector that depends on position, time and unit normal of the surface on which it acts on.
+On the RHS, \(\mb{T}\) is called the \textbf{Cauchy Stress Tensor} which linearly maps the unit normal to the traction.
+and we know:
+\begin{equation*}
+  \begin{aligned}
+    (\text{LHS of~\cref{eq:BL_Euler_LMB}}) \qquad & \int\limits_\mathcal{R} \rho \mb{v} \d v &&= \int\limits_{\mathcal{R}_o} {\color{myred}\rho} \mb{v} {\color{myred}J} \d V      \quad                            && \text{where} \quad  \rho J = \rho_o                      \\
+                                                  &                                          &&\overset{\footref{A}}{=} \int\limits_{\mathcal{R}_o} {\color{myred}\rho_o} \dot{\mb{v}}\mathop{}{\color{myred} \d V} \quad && \text{where} \quad \rho \d v = \rho J \d V = \rho_o \d V \\
+                                                  &                                          &&= \int\limits_\mathcal{R} \rho \dot{\mb{v}} \d v.                                                                               &&                                                          \\
+    (\text{RHS of~\cref{eq:BL_Euler_LMB}}) \quad  &\int\limits_{\p \mathcal{R}} \mb{t} \d a  &&\overset{\footref{B}}{=} \int\limits_\mathcal{R} \div \mb{T} \d v                                                           &&
+  \end{aligned}
+\end{equation*}
+%
+\stepcounter{footnote}%
+\footnotetext{\footlabel{A}If there is an expression of the form \(\rho \mathbin{\qedsymbol} \d v\) in integrals (in \(\mathcal{R}\)), and there's a time derivative behind the integral we can simply bring the derivative into the integral and only take the derivative of \(\qedsymbol\), thus: \(\nf{\d}{\d t} \int_{\mathcal{R}} \rho \mathbin{\dot{\qedsymbol}} \d v\). e.g., \(\nf{d}{\d t} \int_{\mathcal{R}} \rho \mb{v} \d v = \int_{\mathcal{R}} \rho \dot{\mb{v}} \d v\).}
+\stepcounter{footnote}%
+\footnotetext{\footlabel{B}Using~\cref{eq:BL_traction_vs_stress_linear}, \(\mb{t} = \mb{T} \mb{n}\), and Gauss Divergence Theorem}
+%
+Therefore, we'll reach to the \emph{local}/\emph{spatial} form of LMB:
+%
+\begin{equation}
+  \int\limits_\mathcal{R} \left(\rho \dot{\mb{v}} - \rho \mb{b} - \div \mb{T}\right) \d v = 0 \qquad \Rightarrow \qquad \boxed{\div \mb{T} + \rho \mb{b} = \rho \dot{\mb{v}}}.
+  \label{eq:BL_LBM_local_spatial}
+\end{equation}
+
+Return to AMB (to be proven), we will have the \emph{local}/\emph{spatial} form per bellow:
+%
+\begin{equation}
+  \boxed{\mb{T}\T = \mb{T}}
+  \label{eq:AMB_local_spatial}
+\end{equation}
+
+To summarize, spatial form of LMB and AMB:
+%
+\begin{table*}[h]
+  \ra{1.3}\centering
+  \begin{tabular}{@{}lll@{}}\toprule
+         & Euler (integral) & Cauchy (Local) \\ \midrule
+    LMB  & \(\displaystyle \int\limits_{\p \mathcal{R}}\mb{t}\d a+\int\limits_\mathcal{R}\rho\mb{b}\d v=\ddt{}\int\limits_\mathcal{R}\rho\mb{v}\d v\)                                                         & \(\displaystyle \div \mb{T} + \rho \mb{b} = \rho \dot{\mb{v}}\) \\[4ex]
+    AMB  & \(\displaystyle \int\limits_{\p \mathcal{R}}\mb{r}_o\crossprod\mb{t}\d a+\int\limits_\mathcal{R}\mb{r}_o\crossprod\rho\mb{b}\d v=\ddt{}\int\limits_\mathcal{R}\mb{r}_o\crossprod\rho\mb{v}\d v\) & \(\displaystyle \mb{T}\T =  \mb{T}\)          \\
+    \bottomrule
+  \end{tabular}
+  \caption{}
+\end{table*}
+
+% --------------------------------------------- %
+% Lecture 13 - Balance Laws III
+%
+% Symmetry of the Cauchy Stress Tensor and Cauchy's Theorem
+% --------------------------------------------- %
+
+\subsection{Proof of \texorpdfstring{\(\mb{T}\T = \mb{T}\)}{TEXT}}
+
+

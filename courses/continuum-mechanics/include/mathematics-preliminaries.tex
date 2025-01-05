@@ -1,0 +1,406 @@
+\chapter{Mathematical Preliminaries}
+
+\section{Axiomatic Approach\index{Axiomatic approach}}
+
+\begin{figure}[htb!]
+  \centerline{\incfig{mp_axiomatic_approach}}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+\begin{definition}[The Euclidean inner (dot) product\index{Euclidean inner product}\index{Euclidean dot product}]
+\marginnote{axiomatic approach \\ inner product \\ norm \\ metric}
+%
+\begin{equation}
+  \begin{aligned}
+    \mb{a} + \mb{b} &= a_{1}b_{1} + a_{2}b_{2} + a_{3}b_{3}
+                    &= \sum_{i} a_{i}b_{i}
+  \end{aligned}
+\end{equation}
+\end{definition}
+
+\begin{definition}[The Euclidean norm]
+%
+\begin{equation}
+  \norm{\mb{a}} = \left(\sum_{i} a_{i}^2\right)^{\nf{1}{2}} = \mb{a} \cdot \mb{a}
+\end{equation}
+\end{definition}
+
+\begin{definition}[The Euclidean metric]
+%
+\begin{equation}
+  \norm{\mb{a} - \mb{b}}
+  \label{eq:}
+\end{equation}
+\end{definition}
+
+
+% --------------------------------------------- %
+
+\section{Basis sets}
+
+Consider
+%
+\begin{equation}
+\sum_{i = 1}^{n} \alpha_i \mb{v}_i = 0
+\end{equation}
+%
+where \(\mb{v}_i \ne \mb{0}\) and \(\alpha_i \mb{v}_i\) is the linear combination of vectors.
+\(v_i\)s are \emph{linearly independent} \(\text{iff } \alpha_i = 0\; \forall i\); linearly dependent otherwise.
+\marginnote{linearly independent}
+
+If a vector space \(\mathcal{V}\) can accomodate at most \(n\) linearly independent vectors, then it has dimensions \(n\), thus \(\mathcal{R}^n\).
+Any choice (not unique) of \(n\) linearly independent vectors constitutes a \emph{basis}:
+\begin{equation}
+  \mb{a} = \sum_{i = 1}^{n} \alpha_i \mb{v}_i = \sum_{j = 1}^{n} \beta_{j} \mb{w}_{j} = \ldots
+  \label{eq:}
+\end{equation}
+%
+where \(\mb{v}_i\)s and \(\mb{w}_j\) are different set of basis sets which have different coefficients \(\alpha_i\) and \(\beta\), respectively (different because value of coefficients depends on the chosen basis set).
+\marginnote{orthogonal basis \\ normalized basis}
+\(\mb{v}_i\)s are \emph{orthogonal}\index{orthogonal basis set} if \(\mb{v}_i \cdot \mb{v}_j = 0\) unless \(i = j\).
+\(\mb{v}_i\)s are \emph{normalized}\index{normalized basis set} if \(\norm{\mb{v}_i} = 1\; \forall i\).
+
+\begin{definition}[Orthonormal basis sets\index{orthonormal basis set}]
+\(e_i\) are both orthogonal and normalized.
+  \marginnote{orthonormal basis}
+%
+\begin{equation}
+  \marginnote{\emph{Tip!} Gram-Schmidt \emph{orthonormalization}\index{orthonormalization}: \(\mb{v}_{i} \rightarrow \mb{e}_{i}\)}
+  \begin{aligned}
+    \mb{a} &= \sum_{i = 1}^{n} \alpha_i \mb{v}_i \!\!\!&= \sum_{i = 1}^{n} a_{i} \mb{e}_{i} \\
+    \mb{b} &= \sum_{j = 1}^{n} \beta_j \mb{w}_j  \!\!\!&= \sum_{j = 1}^{n} b_{j} \mb{e}_{j}
+  \end{aligned}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Kronecer delta]
+  \marginnote{Kronecker delta \(\delta_{ij}\)}
+%
+\begin{equation}
+  \delta_{ij} =
+  \begin{cases}
+    1  & i = j \\[2ex]
+    0  & i \ne j
+  \end{cases}
+  = \mb{e}_i \cdot \mb{e}_{j}
+  \label{eq:}
+\end{equation}
+\end{definition}
+
+\marginnote{We choose to work with \(\mb{e}_{i}\) because they are much more convenient to work with.}
+\begin{example}
+  Inner product
+  %
+  \begin{equation}
+    \mb{a} \cdot \mb{b} = \sum_{i} a_{i} b_{i}
+  \end{equation}
+  %
+  since
+  %
+  \begin{equation*}
+    \begin{aligned}
+      \mb{a} \cdot \mb{b} &= \left(\sum_{i} a_{i} \mb{e}_{i}\right) \cdot \left(\sum_{j} b_{j} \mb{e}_{j}\right) \\
+                          &= \sum_{i} \sum_{j} a_{i} b_{j} \mb{e}_{i} \cdot \mb{e}_{j} \\
+                          &= \sum_{i} \sum_{j} a_{i} b_{\bcancel{j}} \delta_{i\bcancel{j}} \\
+                          &= \sum_{i} a_{i} b_{i} = \sum_{k} a_{k} b_{k} = \ldots
+    \end{aligned}
+    \label{eq:}
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Projection (component) of \(\mb{a}\) along \(\mb{e}_i\)
+  %
+  \begin{equation}
+    a_i = \mb{a} \cdot \mb{e}_{i}
+    \label{eq:}
+  \end{equation}
+  %
+  since
+  %
+  \begin{equation*}
+    \begin{aligned}
+      \mb{a} \cdot \mb{e}_i &= \left(\sum_{j} a_{j} \mb{e}_{j}\right) \cdot \mb{e}_{i}
+                            &= \sum_{j} a_{\bcancel{j}} \underbrace{\mb{e}_{j} \cdot \mb{e}_{i}}_{\delta_{i\bcancel{j}}}
+                            = a_i \marginnote{\(a_j \delta_{ij} = a_i\) since \(\delta_{ij}\) is only non-zero when \(i = j\), thus we are left with the \(i^{\text{th}}\) component of \(\mb{a}\).}
+  \end{aligned}
+    \label{eq:}
+  \end{equation*}
+\end{example}
+
+% --------------------------------------------- %
+
+\section{Summation Convention (Einstein Notation)}
+
+Rules:
+\begin{itemize}
+  \item Repeated, \emph{dummy}\index{dummy index}, indices indicate summation; others are \emph{free}\index{free index} indices.
+    \marginnote{dummy index\\ free index}
+  \item No index may appear more than twice and indicate summation.
+\end{itemize}
+
+\begin{example}
+  \begin{equation*}
+    \mb{a} \cdot \mb{b} = \sum_{i} a_{i} b_{i} \equiv a_{i} b_{i}
+    \label{eq:}
+  \end{equation*}
+
+  \begin{equation*}
+    A_{11} \alpha_{1} + A_{12} \alpha_{2} + A_{13} \alpha_{3}
+    = \sum_{i}^{3} A_{1i} \alpha_{i} = A_{1i} \alpha_{i} = A_{1k} \alpha_{k}
+  \end{equation*}
+
+  \begin{gather*}
+    \begin{bmatrix}
+      A_{11} && A_{12}\quad\ldots\!\!\!\!\!\! &&  \\
+      \vdots &&                   &&  \\
+             &&                   &&
+    \end{bmatrix}
+    \begin{bmatrix}
+      B_{11} && B_{12}\quad\ldots\!\!\!\!\!\! &&  \\
+      \vdots &&                   &&  \\
+             &&                   &&
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      C_{11} && C_{12}\quad\ldots\!\!\!\!\!\! &&  \\
+      \vdots &&                   &&  \\
+             &&                   &&
+    \end{bmatrix} \\
+    \marginnote{\(ij\): free indices (referring to arbitrary values). \(k\): dummy index (summation). Note that \(i\) and \(j\) in the LHS must appear in the RHS as well.}[-0.5cm]
+    \Rightarrow \quad
+    \begin{aligned}
+      C_{ij} &= A_{ik} B_{kj} \\
+           &\ne A_{ki} b_{kj} \\
+           &\ne A_{ik} B_{jk}
+    \end{aligned}
+  \end{gather*}
+\end{example}
+
+
+\begin{definition}[Substitution Property\index{substitution property}]
+  %
+  \begin{equation}
+    \delta_{i\Cbcancel[myblue]{j}} A_{\Cbcancel[myblue]{j}k}
+  \end{equation}
+\end{definition}
+
+\begin{example}
+  \begin{equation*}
+    \delta_{ij} A_{ij} = A_{ii} = A_{jj} = A_{kk} = \ldots
+  \end{equation*}
+\end{example}
+
+
+% --------------------------------------------- %
+
+\section{Vector Product (3D)}
+
+A basis can be right- or left-handed.
+Vector (cross product),
+\marginnote{
+  cross product \(\crossprod\) \\
+  right-handed basis
+  {
+    \begin{tikzpicture}[scale=1]
+      \draw[->, thick] (0,0,0) -- (0,0,1.4) node[anchor=north east] {$\mb{e}_1$};
+      \draw[->, thick] (0,0,0) -- (1,0,0) node[anchor=west] {$\mb{}{e}_2$};
+      \draw[->, thick] (0,0,0) -- (0,1,0) node[anchor=south] {$\mb{e}_3$};
+    \end{tikzpicture}
+  } \\
+  permutation symbol
+}[-0.5cm]
+%
+\begin{equation}
+  \mb{e}_{i} \crossprod \mb{e}_{j} = e_{ijk} \mb{e}_{k}
+\end{equation}
+%
+where \(\mb{e}_{ijk}\) is the permutation symbol
+%
+\begin{equation}
+  \mb{e}_{ijk} = \mleft\{
+    \begin{aligned}
+      1  \quad & \text{if ordered} &&\{i,j,k\} = \{1,2,3\} = ... \\
+      -1 \quad & \text{if odd permutation e.g., } &&\{2,1,3\} \\
+      0  \quad & \text{otherwise} &&\{1,1,3\}
+    \end{aligned}
+  \mright.
+  \label{eq:permutation_symbol}
+\end{equation}
+
+\begin{example}
+  \begin{equation*}
+    \begin{aligned}
+      \ee_1 \crossprod \ee_2 &= e_{123} \ee_{3} \hspace{-2ex}&&\mathbin{=} \ee_3 \\
+      \ee_1 \crossprod \ee_3 &= e_{132} \ee_{2} \hspace{-2ex}&&\mathbin{=} -\ee_2\\
+      \ee_2 \crossprod \ee_3 &= e_{231} \ee_{1} \hspace{-2ex}&&\mathbin{=} \ee_1
+    \end{aligned}
+  \end{equation*}
+\end{example}
+
+\paragraph{Note} For any \(\{i, j, k\}\)
+%
+\begin{equation*}
+  \begin{aligned}
+    e_{ijk} &= -e_{jik} \hspace{-2ex}&&= e_{jki} \\
+            &= -e_{ikj} \hspace{-2ex}&&= e_{kij}
+  \end{aligned}
+\end{equation*}
+
+\begin{example}
+  \vspace{-2ex}
+  \begin{gather*}
+    \mb{a} \crossprod \mb{b} = \mb{c} \\
+    \begin{aligned}
+    \left(a_{i} \ee_{i}\right) \crossprod \left(b_{j} \ee_{j}\right)
+      &=\underbrace{a_i b_j \lefteqn{\overbrace{\vphantom{A}\phantom{e_{ijk} \ee_k}}^{\ee_i \crossprod \ee_j}} e_{ijk}}_{c_k} \ee_k = c_k \ee_k \\
+      &= -e_{ikj} a_{i} b_{j} \ee_{k} = e_{kij} a_{i} b_{j} \ee_{k} = \ldots
+    \end{aligned}
+  \end{gather*}
+\end{example}
+
+\begin{example}
+  Show \(\mb{a} \cdot (\mb{a} \crossprod \mb{b})\) = 0.
+  %
+  \vspace{-3ex}
+  \begin{equation*}
+    \begin{aligned}
+    \mb{a} \cdot (\mb{a} \crossprod \mb{b})
+    &= \left(a_{l} \ee_{l}\right) \cdot \left(a_{i} \ee_{i} \crossprod b_{j} \ee_{j}\right)
+    = a_{\bcancel{l}} a_{i} b_{j} e_{ijk} \overbrace{\vphantom{A}\ee_{l} \cdot \ee_{k}}^{\delta_{\bcancel{l}k}} \\
+    &= a_{k} a_{i} b_{j} e_{ijk} = a_{i} b_{j} a_{k} e_{ijk} = - a_{i} b_{j} a_{k} e_{kji} = - a_{k} b_{j} a_{i} e_{kji} \\
+    \end{aligned}
+  \end{equation*}
+  \begin{equation*}
+      \Rightarrow \quad a_{i} b_{j} a_{k} e_{ijk} = - a_{k} b_{j} a_{i} e_{kji} =
+      a_{i} b_{j} a_{k} e_{ijk} = - a_{i} b_{j} a_{k} e_{ijk} = 0.
+  \end{equation*}
+\end{example}
+
+% --------------------------------------------- %
+
+\section{Triple Production\index{triple product}}
+
+\begin{equation}
+  [ \mb{a}, \mb{b}, \mb{c} ] = \mb{a} \cdot (\mb{b} \crossprod \mb{c})
+  \marginnote{triple product}
+  \label{eq:triple_product}
+\end{equation}
+
+Triple product behaves ``like'' \(e_{abc}\) w.r.t change of order.
+\begin{example}
+  \vspace{-2ex}
+  \begin{gather*}
+    [ \mb{a}, \mb{b}, \mb{c} ] = - [ \mb{b}, \mb{a}, \mb{c} ] = [ \mb{b}, \mb{c}, \mb{a} ] \\
+    [ \mb{a}, \mb{a}, \mb{c} ] = 0
+  \end{gather*}
+\end{example}
+
+\paragraph{Note}
+\begin{itemize}
+  \item If \([ \mb{a}, \mb{b}, \mb{c} ] = 0\) then \(\{\mb{a}, \mb{b}, \mb{c}\}\) are linearly \emph{dependent}.
+  \item \([ \ee_{1}, \ee_{2}, \ee_{3} ] = 1\)
+\end{itemize}
+
+
+% --------------------------------------------- %
+
+\section{Tensor Algebra\index{tensor algebra}}
+
+An operator \(\mbt{A}\) uniquely maps \(\mb{a} \in \mathbb{R}^n \rightarrow \mb{b} \in \mathbb{R}^n\)
+%
+\begin{equation}
+  \mbt{A} \mb{a} = \mb{b}.
+\end{equation}
+%
+\(\mbt{A}\) is linear if:
+%
+\begin{enumerate}
+  \item (Linearity, part I)  \hspace{2ex} \(\mbt{A}(\alpha \mb{a}) = \alpha (\mbt{A} \mb{a})\)
+  \item (Linearity, part II) \hspace{2ex} \(\mbt{A}(\mb{a} + \mb{b}) = \mbt{A} \mb{a} + \mbt{A} \mb{b}\)
+\end{enumerate}
+%
+Combine these two with how it acts on scalars and other linear operators:
+%
+\begin{enumerate}[start=3]
+  \item (Distributivity) \hspace{2ex} \((\mbt{A} + \mbt{B}) \mb{a} = \mbt{A} \mb{a} + \mbt{B} \mb{a}\)
+  \item (Associativity, part I)  \hspace{2ex} \((\mbt{A} \mbt{B}) \mb{a} = \mbt{A} (\mbt{B} \mb{a})\)
+  \item (Associativity, part II) \hspace{2ex} \((\alpha \mbt{A}) \mb{a} = \alpha (\mbt{A} \mb{a})\)
+\end{enumerate}
+%
+We refer to this linear operator as a \emph{tensor}\index{tensor}.
+In particular, \(\mbt{A}\) is a 2nd-order tensor, and \(\mb{a}\) is a 1st-order tensor.
+\marginnote{tensor}
+%
+\begin{enumerate}[start=6]
+  \item (Identity tensor)\index{identity tensor} \hspace{2ex} \(\I \mb{a} = \mb{a}\)
+  \marginnote{identity tensor \(\I\) \\ zero tensor \(\zerotensor\)}
+  \item (Zero tensor)\index{zero tensor} \hspace{2ex} \(\zerotensor \mb{a} = \bm{0} \quad \text{and} \quad (\zerotensor + \mbt{A}) = \mbt{A}\).
+\end{enumerate}
+
+% --------------------------------------------- %
+
+\section{Tensor product\index{tensor product}}
+
+Let \(\mb{a} = a_{i} \ee_{i}\), and \(\mb{b} = b_{j} \ee_{j}\), then
+%
+\begin{equation*}
+  \{a\}
+  = \begin{Bmatrix}
+    a_{1} \\
+    a_{2} \\
+    \vdots
+  \end{Bmatrix}
+  \quad \text{and} \quad
+  \{b\}
+  = \begin{Bmatrix}
+    b_{1} \\
+    b_{2} \\
+    \vdots
+  \end{Bmatrix}
+\end{equation*}
+%
+are the \emph{array} representation of the vectors \(\mb{a}\) and \(\mb{b}\) respectively.
+Note that arrays not vectors because they do not constitute a basis set.
+Recalling from linear algebra courses we have
+%
+\begin{equation*}
+  \{a\}\T \{b\} = a_1 b_1 + a_2 b_2 + \ldots = a_{i} + b_{i} = \mb{a} \cdot \mb{b}
+  \marginnote{\(\{a\}\T \{b\} \equiv \mb{a} \cdot \mb{b}\)}
+\end{equation*}
+\begin{equation*}
+  \{a\} \{b\}\T
+  =
+  \begin{bmatrix}
+    a_{1} b_{1} & a_{1} b_{2} & \ldots \\
+    a_{2} b_{1} & \ddots      &        \\
+    \vdots      &             &
+  \end{bmatrix}
+  = [\mathsf{A}]. \qquad A_{ij} = a_{i} b_{j}
+\end{equation*}
+%
+Also note that \([\mathsf{A}]\) is the \emph{matrix} representation of the tensor \(A\) and is different with a tensor that has a basis set.
+\marginnote{\(\{a\} \{b\}\T = [\mathsf{A}] \equiv \mathsf{A}_{ij} \overset{\color{myred}!}{=} a_{i} b_{j}\)}
+However, how \([\mathsf{A}]\) is associated with \(\mb{a}\) and \(\mb{b}\)?
+
+The answer is that they are related via a particular type of (2nd-order) tensor \(\mb{a} \otimes \mb{b}\)
+in which \(\otimes\) is the symbol for the \emph{tensor (dyadic) product} (aka ``ban'').
+\marginnote{tensor product \\ dyadic product \\[1ex] Sometimes \(\mb{a} \otimes \mb{b}\) is written simply as \(\mb{a}\mb{b}\)}
+%
+\begin{equation}
+  \begin{aligned}
+    \mb{a} \otimes \mb{b} &= (a_{i} \ee_{i}) \otimes (b_{j} \ee_{j}) \\
+                          &= a_{i} b_{j} \, \ee_{i} \otimes \ee_{j}.
+  \end{aligned}
+  \label{eq:tensor_product}
+\end{equation}
+%
+where \(a_{i} b_{j}\) is the components with respect to the basis of \(\ee_{i} \otimes \ee_{j}\) for the 2nd-order tensor \(\mb{a} \otimes \mb{b}\).
+
+Operation of a (2nd-order) tensor on a vector is defined as the following
+%
+\begin{equation}
+  (\mb{a} \otimes \mb{b}) \mb{c}
+  \label{eq:operation_tensor_on_vector}
+\end{equation}

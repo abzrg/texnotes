@@ -1,14 +1,20 @@
-\documentclass[11pt]{extbook}
+\documentclass[10pt,oneside]{book}
 
 \input{preamble.tex}
+
+% \includeonly{include/mathematics-preliminaries}
 
 \begin{document}
 \maketitle
 \tableofcontents
 \listoffigures
 
-\input{include/kinematics}
+\part{First Half of The course}
+\include{include/mathematics-preliminaries}
+\include{include/balanced_laws}
+\part{Second Half of The course}
 
-\bibliography{ref.bib}
+% \bibliography{ref.bib}
 
+\printindex
 \end{document}

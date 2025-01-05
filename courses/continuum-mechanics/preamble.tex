@@ -1,10 +1,50 @@
-%- Font
+%- Title
+\title{Continuum Mechanics}
+\author{Ali Bozorgzadeh}
+\date{}
+
+
+% --------------------------------------------- % -------------------------------------------- %
+
+\usepackage{imakeidx}
+\makeindex
+
+%- Hyperref
+
+\usepackage[pdftex,bookmarks=true,colorlinks,allcolors=myblue,linktoc=page]{hyperref}
+
+% Nicer (long) footnotes
+\makeatletter
+\def\footlabel{%
+  %\edef\@currentlabel{\thefootnote}%
+  \edef\@currentHref{footnote.\the\c@footnote}%
+  \raisebox{\baselineskip}[0pt]{\hypertarget{\@currentHref}{}}% adjust aim up
+  \label}
+\makeatother
+%
+% Example:
+%
+% \begin{figure}[H]
+% Test of a caption with two footnote
+% \caption[figure]{% no \protect needed with short caption [figure] in use
+% \footref{A} first footnote.
+% \footref{B} second footnote.}
+% \end{figure}
+%
+% ...
+%
+% \stepcounter{footnote}%
+% \footnotetext{\footlabel{A}first reference footnote}
+% \stepcounter{footnote}%
+% \footnotetext{\footlabel{B}second footnote }
+
+
+% --------------------------------------------- % -------------------------------------------- %
+
 \usepackage[utf8]{inputenc}
-% \usepackage[T1]{fontenc}
-% \usepackage{cmbright}
-% \usepackage{mathptmx}
-% \usepackage{kpfonts}
-% \usepackage{cmupint}  % upright integrals for CMU
+\usepackage[T1]{fontenc}
+% \usepackage{mlmodern}
+\usepackage{fix-cm}
 
 % Always load it
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=false,factor=1100,stretch=10,shrink=10]{microtype}
@@ -12,33 +52,59 @@
 
 
 
-%- Title
-\title{Continuum Mechanics}
-\author{Ali Bozorgzadeh}
-\date{}
+% --------------------------------------------- % -------------------------------------------- %
 
-
-
-%- Pile of Packages
-\usepackage[a4paper,margin=2cm]{geometry}
-\usepackage{xcolor}
+\usepackage{globalvals}
+\usepackage[top=2cm,bottom=2cm,left=2cm,right=6cm,marginparwidth=4.25cm, marginparsep=0.75cm]{geometry}
+\usepackage[fulladjust]{marginnote}
+\renewcommand*{\marginfont}{\strut\footnotesize}
+\usepackage[svgnames,dvipsnames,usenames]{xcolor}
 \usepackage[english]{babel}
-\usepackage{enumitem}  % To Tweak lists
-\usepackage{caption}  % Enhance caption
-\usepackage{float} % Control floating environment (provides 'H' option for HERE!)
-% \definecolor{myCiteColor}{HTML}{000080}
-\definecolor{myURLColor}{HTML}{0000a0}
-\usepackage[colorlinks=false,hidelinks]{hyperref}
-% \pdfstringdefDisableCommands{\def\varepsilon{\textepsilon}}
-\usepackage{bookmark}  % Faster updated bookmarks
-\usepackage{url}  % Have URLs and file paths that can break
-\usepackage{booktabs}  % Table
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{float}
+\definecolor{myred}{HTML}{a51d1e}
+\definecolor{myblue}{HTML}{3139ae}
+\definecolor{myblack}{HTML}{000000}
+\definecolor{mylightblue}{HTML}{e9e9f2}
+\usepackage{bookmark}
+\usepackage{url}
+\usepackage{booktabs} % \renewcommand{\arraystretch}{1.2} % (or 1.3)
 \usepackage{multicol}
-\usepackage{mdframed}  % Brakeable framed and colored boxes
+\usepackage{mdframed}
+\usepackage{calc}
+\usepackage{tcolorbox}
+\newtcbox{\mybox}[1][]{on line, size=tight, sharp corners, colback=white, #1}
 % \usepackage{lipsum}
 
 
-%- Figures
+\newcommand{\xqed}[1]{%
+  \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+  \quad\hbox{\ensuremath{#1}}}
+
+\AtBeginEnvironment{example}{\stepcounter{example}}
+\AtEndEnvironment{example}{\xqed{\blacksquare}}
+
+\newmdenv[
+  hidealllines=true,
+  frametitle={Example~\theexample},
+  frametitlerule=true,
+  frametitlerulecolor=black,
+  frametitlerulewidth=2pt,
+  frametitlefont=\bfseries,
+  innerleftmargin=0pt,
+  innerrightmargin=0pt
+]{example}
+
+\newcounter{example}[chapter]
+\renewcommand\theexample{\thechapter-\arabic{example}}
+
+
+% --------------------------------------------- % -------------------------------------------- %
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark,arrows.meta, bending, chains}
+
 \usepackage{graphicx}
 \graphicspath{{./figures}}
 \usepackage[%
@@ -61,94 +127,91 @@
 	\import{./figures/}{#1.pdf_tex}
 }
 
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+% --------------------------------------------- % -------------------------------------------- %
 
 
+\usepackage{amsfonts,amssymb,amsthm,mathtools}
+\usepackage{textcomp}
+\usepackage{dsfont}
+\usepackage{resizegather}
+\usepackage{xfrac}
 
-%- Math stuff
-\usepackage{amsfonts,amssymb,amsthm,mathtools}  % don't directly load amsmath
-\usepackage{textcomp}  % More symbols?
-\usepackage{resizegather}  % Automatically resize overly large equations
-\usepackage{nicefrac}
-
-% Useful commands
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 \newcommand{\degree}{\ensuremath{^\circ\,}}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 \newcommand{\f}{\frac}
-\newcommand{\nf}{\nicefrac}
+\newcommand{\nf}{\sfrac}
 \newcommand{\tr}[1]{\mathrm{Tr}\left({#1}\right)}
-\renewcommand{\d}{\mathop{}\!\mathrm{d}} % total derivative
-\newcommand{\D}{\mathop{}\!\mathrm{D}} % total derivative
-\newcommand{\deltaop}{\mathop{}\!\delta} % delta for small length in each direction (\deltaop x)
+\newcommand{\T}{^{\mathsf{T}}}
+
+\renewcommand{\d}{\mathop{}\!\mathrm{d}}
+\ifdefined\D
+  \renewcommand{\D}{\mathop{}\!\mathrm{D}}
+\else
+  \newcommand{\D}{\mathop{}\!\mathrm{D}}
+\fi
+
+\newcommand{\deltaop}{\mathop{}\!\delta}
 \newcommand{\p}{\partial}
 \newcommand{\rmm}{\mathrm}
 \newcommand{\mr}{\mathrm}
+\newcommand{\mclap}{\mathclap}
 
-% Functions that return real and imaginary part of a complex number
-\usepackage{mleftright} % For better versions of \left and \right (\mleft and \mright)
+\usepackage{mleftright}
 \newcommand{\Real}[2][]{\ensuremath{\mathop{}\!\Re^{#1}\mleft(#2\mright)}}
 \newcommand{\Imag}[2][]{\ensuremath{\mathop{}\!\Im^{#1}\mleft(#2\mright)}}
 
-% Some shortcuts
-\newcommand{\U}{\mathbf{U}} % Velocity vector
-\newcommand{\E}{\mathbf{E}} % Electric field vector
-\newcommand{\F}{\mathbf{F}} % Force vector
-\newcommand{\gammadot}{\dot{\gamma}} % shear rate
+\newcommand{\U}{\mathbf{U}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\gammadot}{\dot{\gamma}}
+\newcommand{\ee}{\mb{e}}
+\newcommand{\zerotensor}{\bm{\mathsf{0}}}
+\newcommand{\I}{\bm{\mathsf I}}  % identity tensor
 
-% Differential operators
-\newcommand{\ddt}[1]{\frac{\partial #1}{\partial t}}
-\newcommand{\ddx}[1]{\frac{\partial #1}{\partial x}}
-\newcommand{\ddy}[1]{\frac{\partial #1}{\partial y}}
-\newcommand{\ddz}[1]{\frac{\partial #1}{\partial z}}
-\newcommand{\ddtt}[1]{\frac{\partial^2 #1}{\partial t^2}}
-\newcommand{\ddxx}[1]{\frac{\partial^2 #1}{\partial x^2}}
-\newcommand{\ddxy}[1]{\frac{\partial^2 #1}{\partial x \partial y}}
-\newcommand{\ddxz}[1]{\frac{\partial^2 #1}{\partial x \partial z}}
-\newcommand{\ddyx}[1]{\frac{\partial^2 #1}{\partial y \partial x}}
-\newcommand{\ddyy}[1]{\frac{\partial^2 #1}{\partial y2}}
-\newcommand{\ddyz}[1]{\frac{\partial^2 #1}{\partial y \partial z}}
-\newcommand{\ddzx}[1]{\frac{\partial^2 #1}{\partial z \partial x}}
-\newcommand{\ddzy}[1]{\frac{\partial^2 #1}{\partial z \partial y}}
-\newcommand{\ddzz}[1]{\frac{\partial^2 #1}{\partial z^2}}
-%
-\newcommand{\ddtout}[1]{\frac{\partial }{\partial t}{#1}}
-\newcommand{\ddxout}[1]{\frac{\partial }{\partial x}{#1}}
-\newcommand{\ddyout}[1]{\frac{\partial }{\partial y}{#1}}
-\newcommand{\ddzout}[1]{\frac{\partial }{\partial z}{#1}}
-\newcommand{\ddttout}[1]{\frac{\partial^2 }{\partial t^2}{#1}}
-\newcommand{\ddxxout}[1]{\frac{\partial^2 }{\partial x^2}{#1}}
-\newcommand{\ddxyout}[1]{\frac{\partial^2 }{\partial x \partial y}{#1}}
-\newcommand{\ddxzout}[1]{\frac{\partial^2 }{\partial x \partial z}{#1}}
-\newcommand{\ddyxout}[1]{\frac{\partial^2 }{\partial y \partial x}{#1}}
-\newcommand{\ddyyout}[1]{\frac{\partial^2 }{\partial y2}{#1}}
-\newcommand{\ddyzout}[1]{\frac{\partial^2 }{\partial y \partial z}{#1}}
-\newcommand{\ddzxout}[1]{\frac{\partial^2 }{\partial z \partial x}{#1}}
-\newcommand{\ddzyout}[1]{\frac{\partial^2 }{\partial z \partial y}{#1}}
-\newcommand{\ddzzout}[1]{\frac{\partial^2 }{\partial z^2}{#1}}
-%
-% Total derivative
-\newcommand{\DDt}[1]{\frac{\partial #1}{\p t} + u\frac{\p #1}{\p x} + v\frac{\p #1}{\p y} + w\frac{\p #1}{\p z}}
+\newcommand{\LMom}{\mb{P}}
+\newcommand{\AMom}{\mb{H}}
 
-% Total derivative vector notation
-\newcommand{\DDtv}[1]{\frac{\partial #1}{\p t} + \left( \U \cdot \grad \right) #1}
+\newcommand{\ul}{\underline}
 
-% Total derivative itself
-\newcommand{\DDT}[1]{\frac{\D #1}{\D t}}
+\newcommand{\dxdy}[2]{\frac{\d #1}{\d #2}}
+\newcommand{\pdxdy}[2]{\frac{\partial #1}{\partial #2}}
 
-% Gradient
-\newcommand{\grad}{\mathop{}\!\nabla} % total derivative
-% % Gradient in case subscript/superscript is needed
-% \NewDocumentCommand{\grad}{e{_^}}{%
-%   \mathop{}\!% \mathop for good spacing before \nabla
-%   \nabla
-%   \IfValueT{#1}{_{\!#1}}% tuck in the subscript
-%   \IfValueT{#2}{^{#2}}% possible superscript
-% }
+\newcommand{\ddt}[1]{\dxdy{#1}{t}}
+\newcommand{\pddt}[1]{\pdxdy{#1}{t}}
 
-% Bold math symbols
-\newcommand{\mb}{\mathbf}
-\newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}} % bold for Greek symbols
-\usepackage{bm} % in case we want to have bold symbols (vectors) in italic: \bm{\alpha} \bm{u}
+\newcommand{\ngrad}{\mathop{}\!\nabla}
+\newcommand{\grad}{\mathop{}\!\text{grad}}
+\newcommand{\Grad}{\mathop{}\!\text{Grad}}
+
+\newcommand{\crossprod}{\mathbin{\times}}
+
+\newcommand{\curl}{\mathop{}\!\text{curl}\crossprod}
+\newcommand{\Curl}{\mathop{}\!\text{Curl}\crossprod}
+\newcommand{\ncurl}{\mathop{}\!\nabla\mathbin{\cdot}}
+
+\newcommand{\ndiv}{\mathop{}\!\nabla\mathbin{\cdot}}
+\renewcommand{\div}{\mathop{}\!\text{div}\,}
+\newcommand{\Div}{\mathop{}\!\text{Div}\,}
+
+% \newcommand{\mb}{\mathbf}
+% \newcommand{\mbg}[1]{\boldsymbol{\mathbf{#1}}}
+\newcommand{\mb}{\bm}
+\newcommand{\mbg}[1]{\bm{#1}}
+
+\usepackage{bbm}
+\usepackage{bm}
+\DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
+\SetMathAlphabet{\mathsfit}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
+\newcommand{\mbt}[1]{\bm{\mathsfit{#1}}}
 
 % Put x \to \infty below \lim
 \let\svlim\lim\def\lim{\svlim\limits}
@@ -165,7 +228,7 @@
 
 % Add \contra symbol to denote contradiction
 \usepackage{stmaryrd} % for \lightning
-\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}  % SILENCE! https://tex.stackexchange.com/a/106719/220469
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
 \newcommand\contra{\scalebox{1.5}{$\lightning$}}
 
 % Fancy script capitals
@@ -173,12 +236,28 @@
 
 % Cancel terms
 \usepackage{cancel}
+\newcommand\Ccancel[2][black]{\renewcommand\CancelColor{\color{#1}}\cancel{#2}}
+\newcommand\Cbcancel[2][black]{\renewcommand\CancelColor{\color{#1}}\bcancel{#2}}
 
 % Theorem environments
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem*{remark}{Remark}
 
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+
+
+% \newtheoremstyle{example}{}{}{}{se.qu}{\bfseries}{. }{0pt}{}
+% \theoremstyle{example}
+% \newtheorem{example}{Example}
+
+
+
+
+\newtheoremstyle{deff}{}{}{}{}{\bfseries}{. }{0pt}{}
+\theoremstyle{deff}
+\newtheorem*{deff}{Definition}
 
 % Small underbrace
 \makeatletter
@@ -192,7 +271,7 @@
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
 % Swap the definition of \abs* and \norm*, so that \abs
-% and \norm resizes the size of the brackets, and the 
+% and \norm resizes the size of the brackets, and the
 % starred version does not.
 \makeatletter
 \let\oldabs\abs
@@ -203,16 +282,9 @@
 \makeatother
 
 
-
-
-
 %- Bibliography
-\usepackage[square,numbers]{natbib}
-\bibliographystyle{unsrtnat}
-
-
-
-
+% \usepackage[square,numbers]{natbib}
+% \bibliographystyle{unsrtnat}
 
 
 %% Clever reference (must be after hyperref and amsmath)
@@ -220,8 +292,6 @@
 \Crefname{equation}{Eq.}{Eqs.}
 \Crefname{figure}{Fig.}{Figs.}
 % \Crefname{tabular}{Tab.}{Tabs.}
-
-
 
 
 %% Deal with the annoying overfull hbox non-sense
@@ -232,64 +302,7 @@
 \hfuzz=0.1pt
 
 
-
-
 %% Units
 \usepackage{siunitx}
 \DeclareSIUnit\sm{\mathrm{S}}  % siemens
 
-
-
-
-
-% %% Nomenclature (needs special .latexmkrc)
-% \usepackage[intoc]{nomencl}
-% \makenomenclature
-% \renewcommand{\nomname}{List of Symbols}  % Default title
-% % \renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document}  % Text in between the title and the list symbols
-%
-% % This will add the subgroups
-% \usepackage{etoolbox}
-% \renewcommand\nomgroup[1]{%
-% 	\item[\bfseries
-% 	            \ifstrequal{#1}{A}{Physics Constants}{%
-% 		            \ifstrequal{#1}{B}{Number Sets}{%
-% 			            \ifstrequal{#1}{C}{Other Symbols}{}}}%
-% 	      ]}
-%
-% % This will add the units
-% \newcommand{\nomunit}[1]{%
-% 	\renewcommand{\nomentryend}{\hspace*{\fill}#1}}
-%
-% % .latexmkrc
-% %
-% % @cus_dep_list = (@cus_dep_list, "nlo nls 0 makenomenclature");
-% % sub makenomenclature {
-% %    system("makeindex $_[0].nlo -s nomencl.ist -o $_[0].nls"); }
-% % @generated_exts = (@generated_exts, 'nlo');
-% %
-
-
-
-
-
-% %% Code listings
-% \usepackage{listings}
-% \usepackage{minted}
-% \usepackage{upquote}  % Make single-quote inside verbatim text come out correctly
-
-
-
-
-
-
-
-% % todonotes
-% \usepackage{todonotes}
-% \setuptodonotes{figwidth=0.5\textwidth,figcolor=orange!10,color=orange!40,inline,noline} % pass 'disable' to disable all todos
-% \newcommand{\note}[1]{\todo[noline,inline,color=green!40,textcolor=black]{#1}}
-% % \todo{default todo}
-% % \todo[inline, color=red]{inline todo}
-% % \todo[noline]{don't insert underline}
-% % \missingfigure{caption}
-% % \listoftodos
